@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser')
 var cors = require('cors');
+var sassMiddleware = require('node-sass-middleware');
 var morgan = require('morgan');
 var router = require('./router.js');
 var mongoose = require('mongoose');
@@ -19,6 +20,14 @@ mongoose.connect('mongodb://admin:qhacks@ds060968.mlab.com:60968/tripninja', fun
         console.log('db connection successful');
     }
 });
+
+app.use(sassMiddleware({
+    src: __dirname + '/public/css',
+    dest: __dirname + '/public/',
+    debug: true,
+    prefix: '/css',
+    outputStyle: 'expanded'
+}));
 
 api.set('port', api_port);
 api.use(bodyParser.json());
