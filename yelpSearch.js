@@ -1,5 +1,24 @@
 var yelp = require("node-yelp");
- 
+var cheerio = require("cheerio");
+var request = require("request");
+
+// Create web scraper to get yelp prices
+var getPriceInfo = function(url, callback){
+  request(url, function (err, res, html) {
+    if (!err && res.statusCode == 200) {
+      var $ = cheerio.load(html); 
+      var priceDescription = $('.price-description').text();
+      console.log(priceDescription);
+      callback(priceDescription);
+    }else{
+      throw err
+    }
+  });
+}
+
+
+
+// console.log(getPriceInfo('http://www.yelp.com/biz/novotel-north-york-2?utm_campaign=yelp_api&utm_medium=api_v2_search&utm_source=grxQo8l5mQF_NuLUh_C2fg'));
  
 var client = yelp.createClient({
   oauth: {
@@ -15,15 +34,20 @@ var client = yelp.createClient({
   }
 });
 
+
+
 // create constructor for business
-var Business = function(name, reviewInfo, phoneNumber, location, categories, url){
+var Business = function(name, reviewInfo, phoneNumber, location, categories, url, priceDescription){
   this.name = name;
   this.reviewInfo = reviewInfo;
   this.phoneNumber = phoneNumber;
   this.location = location;
   this.categories = categories;
   this.url = url;
+  this.priceDescription = priceDescription;
 }
+
+
 
 showBusinesses = function(businesses){
   var businessArray = [];
@@ -36,13 +60,14 @@ showBusinesses = function(businesses){
     var categories = businesses[i].categories;
     var url = businesses[i].url;
 
-    // create a new object with the search results and push into array
-    var businessObject = new Business(name, reviewInfo, phoneNumber, location, categories, url)
-    businessArray.push(businessObject);
+    getPriceInfo(url, function(priceDescription){
+      var businessObject = new Business(name, reviewInfo, phoneNumber, location, categories, url, priceDescription);
+      businessArray.push(businessObject);
+      console.log(businessArray);
+    })
   }
-  // return info on top 5 search results
-  return businessArray
 }
+
 
 var findBusinesses = function(terms, categoryFilter ,postalCode, radiusFilter){
   client.search({
@@ -55,7 +80,7 @@ var findBusinesses = function(terms, categoryFilter ,postalCode, radiusFilter){
   }).then(function (data) {
     var businesses = data.businesses;
     var location = data.region;
-    console.log(showBusinesses(businesses));
+    showBusinesses(businesses);
   
   }).catch(function (err) {
     if (err.type === yelp.errorTypes.areaTooLarge) {
@@ -69,4 +94,4 @@ var findBusinesses = function(terms, categoryFilter ,postalCode, radiusFilter){
 
 
 findBusinesses("hotel", "hotels" ,"M2M3Z9", 5000); //returns information on hotels at a postal code with a 5000m radius
-findBusinesses("food", "food", "M2M3Z9", 2000); // returns information on food ...
+// findBusinesses("food", "food", "M2M3Z9", 2000); // returns information on food ...
