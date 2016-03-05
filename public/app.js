@@ -53,13 +53,13 @@
             });
           }
         }
-
+        var selectedMode = document.getElementById('mode').value;
         directionsService.route({
           origin: $scope.trip.origin,
           destination: document.getElementById('end').value,
           waypoints: waypts,
           optimizeWaypoints: true,
-          travelMode: google.maps.TravelMode.DRIVING
+          travelMode: google.maps.TravelMode[selectedMode]
         }, function(response, status) {
           if (status === google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
