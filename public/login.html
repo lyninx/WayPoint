@@ -1,18 +1,27 @@
-    <video loop muted autoplay id="video_bg" style="position:absolute; z-index:-1;">
+
+<div class="main">
+	 <video loop muted autoplay id="video_bg" style="position:absolute; z-index:-1;">
        <source src="./login.mp4" type="video/mp4">
     </video>
-<div class="main">
-
 	<div class="center login">
 	<h1 class="title">WayPoint</h1>
 	<form>
-	<input ng-model="trip.origin" placeholder="Example Location" ng-submit=""/>
-	<input ng-model="trip.budget" placeholder="Amount budgeted"/>
+	<input ng-model="trip.origin" placeholder="Trip Location" ng-submit=""/>
+	<input ng-model="trip.budget" placeholder="Amount Budgeted"/>
 	<a ng-href="/map">
 		<button>Submit</button>
 	</a>
 	</form>
-	<p ng-show="trip.origin">I'm at {{trip.origin}} right now.</p>
-	<p ng-show="trip.budget">I want to spend ${{trip.budget}} for my trip.</p>
+	<p ng-show="trip.origin">I'm starting my trip in {{trip.origin}}</p>
+	<p ng-show="trip.budget">I want to spend ${{trip.budget}}</p>
 	</div>
+</div>
+<div class="content">
+<article>
+	<h1>Recent Trips</h1>
+	<ul>
+		<li><div>Test</div><div>Test2</div></li>
+		<li><div>Test</div><div>Test2</div></li>
+	</ul>
+</article>
 </div>
