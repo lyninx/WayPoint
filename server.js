@@ -52,14 +52,19 @@ api.use(bodyParser.urlencoded({ extended: false }));
 
 //////////////////////////////////////////////////////////////////
 api.get('/', function(req, res, next) {
-	res.send("test");
+	res.send("api works!");
 });
 api.post('/postWayPt', function(req,res) {
-    console.log("here I am");
-    console.log(req.body.waypoint);
-    var newWayPoint = req.body.waypoint;
+    console.log(req.body.location);
+    var newWayPoint = req.body.location;
     console.log("database inserts " + newWayPoint);
     db.insertWaypoint(newWayPoint);
+    res.send("waypoint added!");
+});
+api.get('/getWayPt', function(req,res) {
+	console.log("fetching waypoints");
+    var wayPoints = db.findWaypoints();
+    res.send("waypoints fetched!");
 });
 
 
