@@ -1,9 +1,5 @@
 /*$blue: #a7c6e1;*/
-@font-face {
-  font-family: 'hanzipen';
-  src: url("./hanzipen.ttf") format("truetype");
-}
-
+@import url(https://fonts.googleapis.com/css?family=Raleway);
 #video_bg {
   min-width: 100%;
   width: 100%;
@@ -40,7 +36,9 @@ body {
 
 h1.title {
   color: #fff;
-  font-family: 'hanzipen';
+  font-family: 'Raleway', sans-serif;
+  letter-spacing: 8px;
+  margin-bottom: 40px;
 }
 
 body .main {
