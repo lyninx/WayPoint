@@ -140,5 +140,24 @@
           }
         });
       }
+
+    
+    var callbackFunction = function(){
+      $http.get('http://api.lyninx.com/showRecommendations')
+      .then(function(res) {
+        console.log("got a response");
+        console.log(res);
+        if(res.data.length <= ($scope.mapModel.length*5-1)){
+          return callbackFunction()
+        }else{
+          $http.get("http://api.lyninx.com/clearWayPt")
+          .then(function(res){
+            console.log("cleared waypoints");
+          })
+        }
+      }); 
+    };
+
+ 
   });
 })()

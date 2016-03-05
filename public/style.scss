@@ -48,22 +48,38 @@ body .content article{
 	max-width:1220px;
 	padding:10px 30px;
 	margin:auto;
-	background:#f5f5f5;
 }
 body .content article ul {
 	list-style: none;
-	background:#eee;
+	padding:0;
+	border-bottom:4px solid $blue;
 }
 body .content article li {
-	padding:8px;
+	padding:12px;
 	display:flex;
 	flex-direction: row;
 }
-body .content article li:hover {
-	background:$blue;
+body .content article li:nth-child(even){
+	background:#f9f9f9;
+}
+body .content article li.header {
 	color:#fff;
+	font-weight:bold;
+	background:$blue;
+
+}
+body .content article li.header:hover {
+	color:#fff;
+	background:$blue;
+	cursor:default;
+}
+body .content article li:hover {
+	color:#333;
+	background:#D5DEF3;
+	cursor:pointer;
 }
 body .content article li div{
+	flex-basis:0;
 	flex-grow:1;
 }
 body .content h1 {
@@ -86,7 +102,7 @@ body .main video {
 body .content {
 	width:100%;
 	background:#fff;
-	min-height:200px;
+	min-height:500px;
 }
 body .main {
 	.center {
@@ -125,6 +141,11 @@ body .main {
 		border:3px solid $blue + 10;
 		background:$blue + 10;
 	}
+}
+.footer {
+		width:100%;
+		min-height:200px;
+		background:$blue;
 }
 button {
 	letter-spacing: 0.5px;
