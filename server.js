@@ -56,7 +56,8 @@ api.get('/', function(req, res, next) {
 });
 api.post('/postWayPt', function(req,res) {
     console.log("here I am");
-    var newWayPoint = req.body;
+    console.log(req.body.waypoint);
+    var newWayPoint = req.body.waypoint;
     console.log("database inserts " + newWayPoint);
     db.insertWaypoint(newWayPoint);
 });
