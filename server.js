@@ -42,6 +42,7 @@ app.use('/*', function(req, res) {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
+api.use(cors());
 
 app.get('/', function(req,res) {
     res.sendfile("public/index.html");
