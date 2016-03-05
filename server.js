@@ -54,6 +54,7 @@ api.use(bodyParser.urlencoded({ extended: false }));
 api.get('/', function(req, res, next) {
 	res.send("api works!");
 });
+
 api.post('/postWayPt', function(req,res) {
     console.log(req.body.location);
     var newWayPoint = req.body.location;
@@ -85,7 +86,9 @@ api.get('/clearWayPt', function(req,res) {
 app.listen(port, function() {
     console.log('listening on port: '+ port);
 });
+
 api.listen(api_port, function(){
 	console.log('api on port: '+ api_port);
 });
+
 
