@@ -55,7 +55,7 @@
         }
 
         directionsService.route({
-          origin: document.getElementById('start').value,
+          origin: $scope.trip.origin,
           destination: document.getElementById('end').value,
           waypoints: waypts,
           optimizeWaypoints: true,

@@ -1,25 +1,25 @@
 <div id="map"></div>
     <div id="right-panel">
     <div>
-    <b>Start:</b>
-    <br>
-    <input name='startPt' id="start" type="text">
-    <br>
-    <form ng-controller="MapSelectCtrl">
-      <b>Waypoints:</b> <br>
-      <input placeholder="enter waypoints along the way..." ng-model="newWayPoint" name="wayPts" type="text">
-      <button ng-click="addWayPoint()">Add the waypoint</button>
+      <form ng-controller="MapSelectCtrl">
+        <b>Start:</b>
+        <span id='start'>{{trip.origin}}</span>
+        <!--input name='startPt' id="start" type="text"-->
+        <br>
+        <b>Waypoints:</b> <br>
+        <input placeholder="enter waypoints along the way..." ng-model="newWayPoint" name="wayPts" type="text">
+        <button ng-click="addWayPoint()">Add the waypoint</button>
+        <br>
+        <i>(Ctrl-Click for multiple selection)</i> <br>
+        <select multiple id="waypoints">
+          <option ng-repeat="waypoint in mapModel" value="{{waypoint}}">{{waypoint}}</option>
+        </select>
+      </form>
       <br>
-      <i>(Ctrl-Click for multiple selection)</i> <br>
-      <select multiple id="waypoints">
-        <option ng-repeat="waypoint in mapModel" value="{{waypoint}}">{{waypoint}}</option>
-      </select>
-    </form>
-    <br>
-    <b>End:</b>
-    <br>
-    <input name='endPt' id="end" type="text">
-    <br>
+      <b>End:</b>
+      <br>
+      <input name='endPt' id="end" type="text">
+      <br>
       <input type="submit" id="submit">
     </div>
     <div id="directions-panel"></div>
