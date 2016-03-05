@@ -15,9 +15,12 @@
 	  $locationProvider.html5Mode(true);
 	});
 
-
+ app.factory("trip",function(){
+        return {};
+  });
 //////////////////////////////////////////////////////////////////////////////////////
-  app.controller('IndexCtrl', function($rootScope, $scope, $routeParams, $http){
+  app.controller('IndexCtrl', function($rootScope, $scope, $routeParams, $http, trip){
+    $scope.trip = trip;
     console.log("test!")
   });
 })()

@@ -1,14 +1,72 @@
+::-webkit-input-placeholder {
+  color: #999;
+}
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: #999;
+}
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: #999;
+}
+
+:-ms-input-placeholder {
+  color: #999;
+}
+
 body {
-  color: #eee;
-  background: #333;
+  color: #111;
+  background: #ccc;
   font-family: Geneva, Tahoma, Verdana, sans-serif;
   padding: 0;
   margin: 0;
   letter-spacing: 0.5px;
 }
 
-content div {
+body .main {
   width: 100%;
-  background: #111;
   padding: 12px;
+}
+
+body .main .center {
+  margin: auto;
+  width: 600px;
+}
+
+body .main form {
+  background: #eee;
+  width: inherit;
+  display: flex;
+  flex-direction: row;
+}
+
+body .main form input {
+  padding: 8px;
+  border: 3px solid #66e0ff;
+  flex-grow: 1;
+  color: #666;
+  letter-spacing: 1px;
+}
+
+body .main form a button {
+  padding: 12px;
+  background: #66e0ff;
+  color: #fff;
+  border: 3px solid #66e0ff;
+  font-weight: bold;
+}
+
+body .main form a button:hover, body .main form a button:focus {
+  border: 3px solid #70eaff;
+  background: #70eaff;
+}
+
+button {
+  letter-spacing: 0.5px;
+}
+
+#directions-panel {
+  background: #eee;
 }

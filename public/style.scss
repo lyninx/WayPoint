@@ -1,13 +1,69 @@
+$blue: #66e0ff;
+$placeholder: #999;
+
+::-webkit-input-placeholder {
+   color: $placeholder;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: $placeholder;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: $placeholder;  
+}
+
+:-ms-input-placeholder {  
+   color: $placeholder;  
+}
 body {
-	color:#eee;
-	background:#333;
+	color:#111;
+	background:#ccc;
 	font-family: Geneva, Tahoma, Verdana, sans-serif;
 	padding:0;
 	margin:0;
 	letter-spacing: 0.5px;
 }
-content div{
+h1, h2, h3, h4, h5 {
+
+}
+body .main {
 	width:100%;
-	background:#111;
 	padding:12px;
+}
+body .main {
+	.center {
+		margin:auto;
+		width:600px;
+	}
+	form {
+		background:#eee;
+		width:inherit;
+		display:flex;
+		flex-direction: row;
+	}
+	form input {
+		padding:8px;
+		border: 3px solid $blue;
+		flex-grow: 1;
+		color:#666;
+		letter-spacing: 1px;
+	}
+	form a button {
+		padding:12px;
+		background:$blue;
+		color:#fff;
+		border:3px solid $blue;
+		font-weight:bold;
+	}
+	form a button:hover, form a button:focus {
+		border:3px solid $blue + 10;
+		background:$blue + 10;
+	}
+}
+button {
+	letter-spacing: 0.5px;
+}
+#directions-panel {
+	background:#eee;
 }
