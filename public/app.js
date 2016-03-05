@@ -6,6 +6,10 @@
       .when("/", {
         templateUrl: "login.html",
         controller: "IndexCtrl"
+      })
+      .when("/map", {
+        templateUrl: "map.html",
+        controller: "IndexCtrl"
       });
 
 	  $locationProvider.html5Mode(true);
