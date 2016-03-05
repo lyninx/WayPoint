@@ -96,6 +96,11 @@ body .content h1 {
   font-size: 2em;
 }
 
+.col {
+  display: flex;
+  flex-direction: row;
+}
+
 body .main {
   width: 100%;
   padding: 0;
@@ -158,7 +163,23 @@ body .main form a button:hover, body .main form a button:focus {
 .footer {
   width: 100%;
   min-height: 200px;
-  background: #768DC1;
+  font-family: 'Raleway', sans-serif;
+  font-weight: bold;
+  background: #444;
+}
+
+.footer content {
+  display: flex;
+  flex-direction: row;
+  flex-basis: 0;
+  width: 1220px;
+  margin: auto;
+}
+
+.footer content div {
+  padding: 30px;
+  flex-grow: 1;
+  color: #999;
 }
 
 button {
