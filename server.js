@@ -86,9 +86,8 @@ api.get('/results', function(req,res){
         var results = yelpSearch.findBusinesses("hotel", "hotels" , waypoints[i].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
         res.send(results);
       };
-    })
-
     return
+    })
 }); 
 
 api.get('/showRecommendations', function(req, res){
