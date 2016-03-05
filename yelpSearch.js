@@ -99,3 +99,6 @@ var findBusinesses = function(terms, categoryFilter ,postalCode, radiusFilter){
 
 
 // findBusinesses("food", "food", "M2M3Z9", 2000); // returns information on food ...
+
+
+module.exports.findBusinesses = findBusinesses;
