@@ -25,7 +25,7 @@
 
   });
 
-  app.controller('MapSelectCtrl', function($scope, trip) {
+  app.controller('MapSelectCtrl', function($scope, $http, trip) {
     $scope.trip = trip;
       initMap();
       function initMap() {
@@ -86,6 +86,10 @@
 
     $scope.addWayPoint = function() {
       $scope.mapModel.push($scope.newWayPoint);
+      $http.post('/postWayPt', $scope.newWayPoint)
+      .then(function() { console.log("Waypoint posted to server") })
+      .catch(function() { console.log("Error, Waypoint not posted")} );
     };
+
   });
 })()
