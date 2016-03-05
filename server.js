@@ -6,6 +6,7 @@ var morgan = require('morgan');
 var mongoose = require('mongoose');
 var router = express.Router();
 var db = require('./model/database.js')
+var yelpSearch = require('./yelpSearch.js');
 
 var app = express();
 var api = express();
@@ -46,6 +47,8 @@ app.get('/', function(req,res) {
     res.sendfile("public/index.html");
 });
 
+
+
 api.set('port', api_port);
 api.use(bodyParser.json());
 api.use(bodyParser.urlencoded({ extended: false }));
@@ -74,10 +77,17 @@ api.get('/getWayPt', function(req,res) {
     });  
 });
 
-api.get('/getYelpData', function(req,res){
-    console.log("Getting yelp data...");
+api.get('/results', function(req,res){
+    console.log("Getting results...");
+    db.findWaypoints(function(waypoints){
+      // Also inserts found waypoints into database
+    for (var i=0; i<waypoints.length; i++){
+        var results = yelpSearch.findBusinesses("hotel", "hotels" , waypoints[i].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
+      };
+    })
 
 });
+
 
 api.get('/clearWayPt', function(req,res) {
 	console.log("clearing waypoints");

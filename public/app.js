@@ -80,7 +80,6 @@
           }
         });
       }
-
     $scope.newWayPoint = "";
     $scope.mapModel = [];
 
