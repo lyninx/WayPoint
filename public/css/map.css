@@ -1,6 +1,7 @@
       #floating-panel {
         width: 150px;
         margin: auto;
+  
         z-index: 5;
         background-color: #fff;
         padding: 5px;

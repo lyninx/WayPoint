@@ -1,8 +1,8 @@
 (function(){
-	var app = angular.module('qhacks',['ui.router', 'ngRoute']);
+  var app = angular.module('qhacks',['ui.router', 'ngRoute']);
 
-	app.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
-	  $routeProvider
+  app.config(function ($routeProvider, $locationProvider, $stateProvider, $urlRouterProvider) {
+    $routeProvider
       .when("/", {
         templateUrl: "login.html",
         controller: "IndexCtrl"
@@ -12,8 +12,8 @@
         controller: "IndexCtrl"
       });
 
-	  $locationProvider.html5Mode(true);
-	});
+    $locationProvider.html5Mode(true);
+  });
 
   app.factory("trip",function(){
         return {};
@@ -46,12 +46,12 @@
         var waypts = [];
         var checkboxArray = document.getElementById('waypoints');
         for (var i = 0; i < checkboxArray.length; i++) {
-          if (checkboxArray.options[i].selected) {
+         // if (checkboxArray.options[i].selected) {
             waypts.push({
               location: checkboxArray[i].value,
               stopover: true
             });
-          }
+         // }
         }
         var selectedMode = document.getElementById('mode').value;
         directionsService.route({
@@ -82,6 +82,8 @@
       }
     $scope.newWayPoint = "";
     $scope.mapModel = [];
+    $scope.yelpModel = [];
+    $scope.markerArr = [];
 
     $scope.addWayPoint = function() {
       $scope.mapModel.push($scope.newWayPoint);
@@ -97,6 +99,15 @@
           },
           data: {location: $scope.newWayPoint}
       }).success(function () {});
+    };
+
+    $scope.getYelpData = function() {
+      console.log("pressed")
+      $http.get('http://api.lyninx.com/showRecommendations')
+      .then(function(res) {
+        console.log("got a response");
+        console.log(res);
+      });
     };
   });
 })()

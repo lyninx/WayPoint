@@ -38,7 +38,7 @@ app.use(express.static(__dirname + "/public"));
 app.use('/*', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
-
+    
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -86,9 +86,8 @@ api.get('/results', function(req,res){
         var results = yelpSearch.findBusinesses("hotel", "hotels" , waypoints[i].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
         res.send(results);
       };
-    })
-
     return
+    })
 }); 
 
 api.get('/showRecommendations', function(req, res){
