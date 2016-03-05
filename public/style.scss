@@ -1,11 +1,16 @@
-$blue: #a7c6e1;
+/*$blue: #a7c6e1;*/
+$blue: #768DC1;
 $placeholder: #999;
 
 @font-face {
       font-family: 'hanzipen';
       src: url('./hanzipen.ttf') format('truetype');
 }
-
+#video_bg {
+	min-width:100%;
+	width:100%;
+	min-height:100vh;
+}
 ::-webkit-input-placeholder {
    color: $placeholder;
 }
@@ -28,6 +33,8 @@ body {
 	padding:0;
 	margin:0;
 	letter-spacing: 0.5px;
+	min-height:100vh;
+	overflow:hidden;
 }
 h1, h2, h3, h4, h5 {
 
@@ -40,10 +47,20 @@ body .main {
 	width:100%;
 	padding:12px;
 }
+img.title {
+	width:200px;
+	margin:auto;
+}
 body .main {
 	.center {
 		margin:auto;
 		width:600px;
+		text-align: center;
+	}
+	.center.login {
+		-webkit-transform: translateY(100%);
+		-ms-transform: translateY(100%);
+		transform: translateY(100%);
 	}
 	form {
 		background:#eee;
@@ -53,7 +70,9 @@ body .main {
 	}
 	form input {
 		padding:8px;
-		border: 3px solid $blue;
+		border-left: 3px solid $blue;
+		border-top: 3px solid $blue;
+		border-bottom: 3px solid $blue;
 		flex-grow: 1;
 		color:#666;
 		letter-spacing: 1px;

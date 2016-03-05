@@ -1,6 +1,13 @@
+/*$blue: #a7c6e1;*/
 @font-face {
   font-family: 'hanzipen';
   src: url("./hanzipen.ttf") format("truetype");
+}
+
+#video_bg {
+  min-width: 100%;
+  width: 100%;
+  min-height: 100vh;
 }
 
 ::-webkit-input-placeholder {
@@ -28,6 +35,8 @@ body {
   padding: 0;
   margin: 0;
   letter-spacing: 0.5px;
+  min-height: 100vh;
+  overflow: hidden;
 }
 
 h1.title {
@@ -40,9 +49,21 @@ body .main {
   padding: 12px;
 }
 
+img.title {
+  width: 200px;
+  margin: auto;
+}
+
 body .main .center {
   margin: auto;
   width: 600px;
+  text-align: center;
+}
+
+body .main .center.login {
+  -webkit-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  transform: translateY(100%);
 }
 
 body .main form {
@@ -54,7 +75,9 @@ body .main form {
 
 body .main form input {
   padding: 8px;
-  border: 3px solid #a7c6e1;
+  border-left: 3px solid #768DC1;
+  border-top: 3px solid #768DC1;
+  border-bottom: 3px solid #768DC1;
   flex-grow: 1;
   color: #666;
   letter-spacing: 1px;
@@ -62,15 +85,15 @@ body .main form input {
 
 body .main form a button {
   padding: 12px;
-  background: #a7c6e1;
+  background: #768DC1;
   color: #fff;
-  border: 3px solid #a7c6e1;
+  border: 3px solid #768DC1;
   font-weight: bold;
 }
 
 body .main form a button:hover, body .main form a button:focus {
-  border: 3px solid #b1d0eb;
-  background: #b1d0eb;
+  border: 3px solid #8097cb;
+  background: #8097cb;
 }
 
 button {
