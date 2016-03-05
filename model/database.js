@@ -114,6 +114,16 @@ var findYelpResults = function(callback){
 	})
 }
 
+var removeYelpResults = function(callback){
+	YelpResult.remove({}, function(err, docs){
+		if (err){
+			throw err
+		}else{
+			console.log(docs + " are removed")
+		}
+	})
+}
+
 
 
 module.exports.insertWaypoint = insertWaypoint;
@@ -121,4 +131,5 @@ module.exports.findWaypoints = findWaypoints;
 module.exports.removeWaypoints = removeWaypoints;
 module.exports.insertYelpResult = insertYelpResult;
 module.exports.findYelpResults = findYelpResults;
+module.exports.removeYelpResults = removeYelpResults;
 

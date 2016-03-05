@@ -101,13 +101,29 @@
       }).success(function () {});
     };
 
-    $scope.getYelpData = function() {
-      console.log("pressed")
+    
+    var callbackFunction = function(){
       $http.get('http://api.lyninx.com/showRecommendations')
       .then(function(res) {
         console.log("got a response");
         console.log(res);
-      });
+        if(res.data.length <= ($scope.mapModel.length*5-1)){
+          return callbackFunction()
+        }else{
+          $http.get("http://api.lyninx.com/clearAll")
+          .then(function(res){
+            console.log("cleared waypoints");
+          })
+        }
+      }); 
+    };
+
+    $scope.getYelpData = function() {
+      $http.get('http://api.lyninx.com/results')
+      .then(function(){
+        console.log("pushing /results to database")
+        callbackFunction()
+      }) 
     };
   });
 })()
