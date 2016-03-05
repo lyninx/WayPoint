@@ -1,7 +1,7 @@
       #right-panel {
         font-family: 'Roboto','sans-serif';
         line-height: 30px;
-        padding-left: 10px;
+        padding-left: 5px;
       }
 
       #right-panel select, #right-panel input {
@@ -16,16 +16,15 @@
         font-size: 12px;
       }
       #map {
-        height: 100%;
-        float: left;
-        width: 70%;
-        height: 100%;
+        margin: auto;
+        width: 800px;
+        height: 400px;
       }
       #right-panel {
-        margin: 20px;
+        margin: 10px;
         border-width: 2px;
         width: 20%;
-        float: left;
+        float: right;
         text-align: left;
         padding-top: 20px;
       }
