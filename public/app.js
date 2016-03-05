@@ -87,6 +87,5 @@
     $scope.addWayPoint = function() {
       $scope.mapModel.push($scope.newWayPoint);
     };
-
   });
 })()
