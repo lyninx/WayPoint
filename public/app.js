@@ -86,10 +86,18 @@
 
     $scope.addWayPoint = function() {
       $scope.mapModel.push($scope.newWayPoint);
-      $http.post('/postWayPt', $scope.newWayPoint)
-      .then(function() { console.log("Waypoint posted to server") })
-      .catch(function() { console.log("Error, Waypoint not posted")} );
+      $http({
+          method: 'POST',
+          url: 'http://api.lyninx.com/postWayPt',
+          headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+          transformRequest: function(obj) {
+              var str = [];
+              for(var p in obj)
+              str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+              return str.join("&");
+          },
+          data: {location: $scope.newWayPoint}
+      }).success(function () {});
     };
-
   });
 })()

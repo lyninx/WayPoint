@@ -62,6 +62,7 @@ api.post('/postWayPt', function(req,res) {
     db.insertWaypoint(newWayPoint);
     res.send("waypoint added!");
 });
+
 api.get('/getWayPt', function(req,res) {
 	console.log("fetching waypoints");
 	var wayPoints = "";
@@ -72,6 +73,12 @@ api.get('/getWayPt', function(req,res) {
     	return
     });  
 });
+
+api.get('/getYelpData', function(req,res){
+    console.log("Getting yelp data...");
+
+});
+
 api.get('/clearWayPt', function(req,res) {
 	console.log("clearing waypoints");
 	var wayPoints = "";
@@ -80,6 +87,8 @@ api.get('/clearWayPt', function(req,res) {
     	res.send("cleared");
     });  
 });
+
+
 
 
 //////////////////////////////////////////////////////////////////
