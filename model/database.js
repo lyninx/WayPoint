@@ -2,8 +2,8 @@ var mongoose = require("mongoose");
 
 
 // SET UP DATABASE
-var Waypoint = require("./schema.js");
-var YelpResult = require("./schema.js");
+var Waypoint = require("./schema.js").WaypointSchema;
+var YelpResult = require("./schema.js").YelpSchema;
 
 var dbURI = "mongodb://admin:qhacks@ds060968.mlab.com:60968/tripninja"
 
@@ -24,9 +24,9 @@ mongoose.connection.on('disconnected', function () {
 
 // inserts a waypoint location from map into database
 var insertWaypoint = function(location){
+	console.log("inserting waypoint...")
 	var newWaypoint = new Waypoint();
 	newWaypoint.location = location;
-
 	newWaypoint.save(function(err, docs){
 		if (err){
 			throw err
