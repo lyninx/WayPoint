@@ -22,8 +22,8 @@ mongoose.connect('mongodb://admin:qhacks@ds060968.mlab.com:60968/tripninja', fun
 });
 
 app.use(sassMiddleware({
-    src: __dirname + '/public/css',
-    dest: __dirname + '/public/',
+    src: __dirname + '/public/',
+    dest: __dirname + '/public/css',
     debug: true,
     prefix: '/css',
     outputStyle: 'expanded'
