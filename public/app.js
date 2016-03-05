@@ -23,4 +23,13 @@
     $scope.trip = trip;
     console.log("test!")
   });
+
+  app.controller('MapSelectCtrl', function($scope) {
+    $scope.newWayPoint = "";
+    $scope.mapModel = [];
+
+    $scope.addWayPoint = function() {
+      $scope.mapModel.push($scope.newWayPoint);
+    };
+  });
 })()
