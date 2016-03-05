@@ -3,20 +3,19 @@ var cheerio = require("cheerio");
 var request = require("request");
 
 // Create web scraper to get yelp prices
-var getPriceInfo = function(url, callback){
+var getPriceInfo = function(businessObject, url){
   request(url, function (err, res, html) {
     if (!err && res.statusCode == 200) {
       var $ = cheerio.load(html); 
       var priceDescription = $('.price-description').text();
-      console.log(priceDescription);
-      callback(priceDescription);
+      businessObject.priceDescription = priceDescription;
+      // Do stuff with the data...
+      console.log(businessObject);
     }else{
       throw err
     }
   });
 }
-
-
 
 // console.log(getPriceInfo('http://www.yelp.com/biz/novotel-north-york-2?utm_campaign=yelp_api&utm_medium=api_v2_search&utm_source=grxQo8l5mQF_NuLUh_C2fg'));
  
@@ -49,7 +48,7 @@ var Business = function(name, reviewInfo, phoneNumber, location, categories, url
 
 
 
-showBusinesses = function(businesses){
+showBusinesses = function(businesses, callback){
   var businessArray = [];
   for(var i=0; i<businesses.length; i++){
     // get business information
@@ -60,11 +59,9 @@ showBusinesses = function(businesses){
     var categories = businesses[i].categories;
     var url = businesses[i].url;
 
-    getPriceInfo(url, function(priceDescription){
-      var businessObject = new Business(name, reviewInfo, phoneNumber, location, categories, url, priceDescription);
-      businessArray.push(businessObject);
-      console.log(businessArray);
-    })
+    // get prices and then create new object with prices included 
+    var businessObject = new Business(name, reviewInfo, phoneNumber, location, categories, url);
+    callback(businessObject , url);
   }
 }
 
@@ -78,9 +75,9 @@ var findBusinesses = function(terms, categoryFilter ,postalCode, radiusFilter){
     radius_filter: radiusFilter,
     category_filter: categoryFilter
   }).then(function (data) {
+    // this is where the data gets processed
     var businesses = data.businesses;
-    var location = data.region;
-    showBusinesses(businesses);
+    showBusinesses(businesses, getPriceInfo);
   
   }).catch(function (err) {
     if (err.type === yelp.errorTypes.areaTooLarge) {
