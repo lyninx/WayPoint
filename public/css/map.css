@@ -21,11 +21,9 @@
         height: 400px;
       }
       #right-panel {
-        margin: 10px;
+        margin: auto;
         border-width: 2px;
-        width: 20%;
-        float: right;
-        text-align: left;
+        width: 40%;
         padding-top: 20px;
       }
       #directions-panel {
