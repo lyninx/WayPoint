@@ -4,10 +4,14 @@ var cors = require('cors');
 var sassMiddleware = require('node-sass-middleware');
 var morgan = require('morgan');
 var mongoose = require('mongoose');
+var router = express.Router();
 var db = require('./model/database.js')
+
 var app = express();
+var api = express();
 
 var port = 3000;
+var api_port = 3001;
 
 
 //////////////////////////////////////////////////////////////////
@@ -42,15 +46,27 @@ app.get('/', function(req,res) {
     res.sendfile("public/index.html");
 });
 
-app.post('/postWayPt', function(req,res) {
+api.set('port', api_port);
+api.use(bodyParser.json());
+api.use(bodyParser.urlencoded({ extended: false }));
+
+//////////////////////////////////////////////////////////////////
+api.get('/', function(req, res, next) {
+	res.send("test");
+});
+api.post('/postWayPt', function(req,res) {
     console.log("here I am");
     var newWayPoint = req.body;
     console.log("database inserts " + newWayPoint);
     db.insertWaypoint(newWayPoint);
 });
 
+
 //////////////////////////////////////////////////////////////////
 app.listen(port, function() {
     console.log('listening on port: '+ port);
+});
+api.listen(api_port, function(){
+	console.log('api on port: '+ api_port);
 });
 
