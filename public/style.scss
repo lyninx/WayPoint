@@ -1,5 +1,10 @@
-$blue: #66e0ff;
+$blue: #a7c6e1;
 $placeholder: #999;
+
+@font-face {
+      font-family: 'hanzipen';
+      src: url('./hanzipen.ttf') format('truetype');
+}
 
 ::-webkit-input-placeholder {
    color: $placeholder;
@@ -26,6 +31,10 @@ body {
 }
 h1, h2, h3, h4, h5 {
 
+}
+h1.title {
+	color:#fff;
+	font-family: 'hanzipen';
 }
 body .main {
 	width:100%;

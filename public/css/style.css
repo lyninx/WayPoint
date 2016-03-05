@@ -1,3 +1,8 @@
+@font-face {
+  font-family: 'hanzipen';
+  src: url("./hanzipen.ttf") format("truetype");
+}
+
 ::-webkit-input-placeholder {
   color: #999;
 }
@@ -25,6 +30,11 @@ body {
   letter-spacing: 0.5px;
 }
 
+h1.title {
+  color: #fff;
+  font-family: 'hanzipen';
+}
+
 body .main {
   width: 100%;
   padding: 12px;
@@ -44,7 +54,7 @@ body .main form {
 
 body .main form input {
   padding: 8px;
-  border: 3px solid #66e0ff;
+  border: 3px solid #a7c6e1;
   flex-grow: 1;
   color: #666;
   letter-spacing: 1px;
@@ -52,15 +62,15 @@ body .main form input {
 
 body .main form a button {
   padding: 12px;
-  background: #66e0ff;
+  background: #a7c6e1;
   color: #fff;
-  border: 3px solid #66e0ff;
+  border: 3px solid #a7c6e1;
   font-weight: bold;
 }
 
 body .main form a button:hover, body .main form a button:focus {
-  border: 3px solid #70eaff;
-  background: #70eaff;
+  border: 3px solid #b1d0eb;
+  background: #b1d0eb;
 }
 
 button {
