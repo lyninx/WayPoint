@@ -96,9 +96,29 @@ var insertYelpResult = function(searchResult){
 }
 
 
+// EXAMPLE ====
+
+// findYelpResults(function(yelpResults){
+// 	console.log(yelpResults);
+// })
+
+
+
+var findYelpResults = function(callback){
+	YelpResult.find({}, function(err, docs){
+		if (err) {
+			throw err
+		}else{
+			callback(docs);
+		}
+	})
+}
+
+
 
 module.exports.insertWaypoint = insertWaypoint;
 module.exports.findWaypoints = findWaypoints;
 module.exports.removeWaypoints = removeWaypoints;
 module.exports.insertYelpResult = insertYelpResult;
+module.exports.findYelpResults = findYelpResults;
 

@@ -84,10 +84,21 @@ api.get('/results', function(req,res){
       // Also inserts found waypoints into database
     for (var i=0; i<waypoints.length; i++){
         var results = yelpSearch.findBusinesses("hotel", "hotels" , waypoints[i].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
+        res.send(results);
       };
     })
 
-});
+    return
+}); 
+
+api.get('/showRecommendations', function(req, res){
+    console.log("Showing results...");
+    db.findYelpResults(function(results){
+        res.send(results);
+        console.log(results);
+        return
+    })
+})
 
 
 api.get('/clearWayPt', function(req,res) {
