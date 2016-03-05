@@ -63,8 +63,14 @@ api.post('/postWayPt', function(req,res) {
 });
 api.get('/getWayPt', function(req,res) {
 	console.log("fetching waypoints");
-    var wayPoints = db.findWaypoints();
-    res.send("waypoints fetched!");
+	var wayPoints = "";
+    db.findWaypoints(function(docs) { 
+    	
+    	res.send(docs);
+    	console.log(docs);
+    	return
+    });
+    
 });
 
 
