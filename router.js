@@ -2,7 +2,7 @@ var express = require('express');
 var cors = require('cors');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Page = require('./model/schema.js');
+var Model = require('./model/schema.js');
 //var User = require('./model/user.js');
 
 /* GET /api listing. */

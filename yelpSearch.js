@@ -1,21 +1,8 @@
 var yelp = require("node-yelp");
 var cheerio = require("cheerio");
 var request = require("request");
-
-// Create web scraper to get yelp prices
-var getPriceInfo = function(businessObject, url){
-  request(url, function (err, res, html) {
-    if (!err && res.statusCode == 200) {
-      var $ = cheerio.load(html); 
-      var priceDescription = $('.price-description').text();
-      businessObject.priceDescription = priceDescription;
-      // Do stuff with the data...
-      console.log(businessObject);
-    }else{
-      throw err
-    }
-  });
-}
+var Model = require('./model/schema.js');
+var mongoose = require('mongoose');
 
 // console.log(getPriceInfo('http://www.yelp.com/biz/novotel-north-york-2?utm_campaign=yelp_api&utm_medium=api_v2_search&utm_source=grxQo8l5mQF_NuLUh_C2fg'));
  
@@ -33,8 +20,6 @@ var client = yelp.createClient({
   }
 });
 
-
-
 // create constructor for business
 var Business = function(name, reviewInfo, phoneNumber, location, categories, url, priceDescription){
   this.name = name;
@@ -44,6 +29,22 @@ var Business = function(name, reviewInfo, phoneNumber, location, categories, url
   this.categories = categories;
   this.url = url;
   this.priceDescription = priceDescription;
+}
+
+
+// Create web scraper to get yelp prices
+var getPriceInfo = function(businessObject, url){
+  request(url, function (err, res, html) {
+    if (!err && res.statusCode == 200) {
+      var $ = cheerio.load(html); 
+      var priceDescription = $('.price-description').text();
+      businessObject.priceDescription = priceDescription;
+      // Do stuff with the data...
+      console.log(businessObject);
+    }else{
+      throw err
+    }
+  });
 }
 
 
@@ -90,5 +91,5 @@ var findBusinesses = function(terms, categoryFilter ,postalCode, radiusFilter){
  
 
 
-findBusinesses("hotel", "hotels" ,"M2M3Z9", 5000); //returns information on hotels at a postal code with a 5000m radius
+findBusinesses("hotel", "hotels" ,"Toronto", 5000); //returns information on hotels at a postal code with a 5000m radius
 // findBusinesses("food", "food", "M2M3Z9", 2000); // returns information on food ...
