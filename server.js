@@ -69,8 +69,15 @@ api.get('/getWayPt', function(req,res) {
     	res.send(docs);
     	console.log(docs);
     	return
-    });
-    
+    });  
+});
+api.get('/clearWayPt', function(req,res) {
+	console.log("clearing waypoints");
+	var wayPoints = "";
+    db.removeWaypoints(function(waypoints) { 
+    	//console.log(waypoints);
+    	res.send("cleared");
+    });  
 });
 
 
