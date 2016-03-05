@@ -101,5 +101,13 @@
       }).success(function () {});
     };
 
+    $scope.getYelpData = function() {
+      console.log("pressed")
+      $http.get('http://api.lyninx.com/showRecommendations')
+      .then(function(res) {
+        console.log("got a response");
+        console.log(res);
+      });
+    };
   });
 })()
