@@ -17,11 +17,8 @@
     "mongodb": "^2.1.0",
     "mongoose": "4.4.5",
     "morgan": "~1.5.1",
-<<<<<<< HEAD
     "node-yelp": "0.0.3",
-=======
     "node-sass-middleware": "^0.9.7",
->>>>>>> 82ce2c76d0d3e699b54196dad6a50c6b81c10757
     "serve-favicon": "~2.2.0"
   }
 }
