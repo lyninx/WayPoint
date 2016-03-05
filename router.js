@@ -5,6 +5,7 @@ var mongoose = require('mongoose');
 var Model = require('./model/schema.js');
 //var User = require('./model/user.js');
 
+
 /* GET /api listing. */
 router.all(function(req, res, next) {
   res.header('Access-Control-Allow-Origin', '*');

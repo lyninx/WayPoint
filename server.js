@@ -5,6 +5,7 @@ var sassMiddleware = require('node-sass-middleware');
 var morgan = require('morgan');
 var router = require('./router.js');
 var mongoose = require('mongoose');
+var db = require('./model/database.js')
 var app = express();
 var api = express();
 var admin = express();
@@ -40,6 +41,12 @@ app.use(morgan('dev')); // log every request to the console
 app.use(express.static(__dirname + "/public"));
 app.use('/*', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
+});
+
+app.post('/postWayPt', function(req,res) {
+    var newWayPoint = req.body;
+    console.log("database inserts " + newWayPoint);
+    db.insertWaypoint(newWayPoint);
 });
 
 //////////////////////////////////////////////////////////////////
