@@ -110,7 +110,7 @@
         if(res.data.length <= ($scope.mapModel.length*5-1)){
           return callbackFunction()
         }else{
-          $http.get("http://api.lyninx.com/clearAll")
+          $http.get("http://api.lyninx.com/clearWayPt")
           .then(function(res){
             console.log("cleared waypoints");
           })
