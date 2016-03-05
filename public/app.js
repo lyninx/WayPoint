@@ -46,12 +46,12 @@
         var waypts = [];
         var checkboxArray = document.getElementById('waypoints');
         for (var i = 0; i < checkboxArray.length; i++) {
-          if (checkboxArray.options[i].selected) {
+         // if (checkboxArray.options[i].selected) {
             waypts.push({
               location: checkboxArray[i].value,
               stopover: true
             });
-          }
+         // }
         }
         var selectedMode = document.getElementById('mode').value;
         directionsService.route({
@@ -84,6 +84,7 @@
     $scope.newWayPoint = "";
     $scope.mapModel = [];
     $scope.yelpModel = [];
+    $scope.markerArr = [];
 
     $scope.addWayPoint = function() {
       $scope.mapModel.push($scope.newWayPoint);
@@ -101,23 +102,5 @@
       }).success(function () {});
     };
 
-    $scope.getYelpData = function() {
-      $http.get('/getWayPt')
-      .then( function(res) { 
-        console.log("Yelp data fetched");
-        // wait until API works
-        $scope.yelpModel = res;
-
-        /*for (var j = 0; j < res.length; j++) {
-          var latLng = {lat: , lng: };
-          var marker = new google.maps.Marker({
-            position: latLng,
-            map: map,
-            title: 
-          });*/
-      })
-      .catch(function() { console.log("Can't fetch yelp data"); });
-
-    }
   });
 })()

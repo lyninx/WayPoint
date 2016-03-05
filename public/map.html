@@ -21,7 +21,7 @@
         <input placeholder="enter waypoints along the way..." ng-model="newWayPoint" name="wayPts" type="text"/>
         <button ng-click="addWayPoint()">Add the waypoint</button>
         <br>
-        <i>(Ctrl-Click for multiple selection)</i> <br>
+        <!--i>(Ctrl-Click for multiple selection)</i--> <br>
         <select multiple id="waypoints">
           <option ng-repeat="waypoint in mapModel" value="{{waypoint}}">{{waypoint}}</option>
         </select>
@@ -31,7 +31,7 @@
       <br>
       <input name='endPt' id="end" type="text"/>
       <br>
-      <input type="submit" id="submit"/>
+      <input type="submit" ng-click="getYelpData()" id="submit"/>
     </div>
     <div id="directions-panel"></div>
     </div>
