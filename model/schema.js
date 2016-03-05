@@ -1,17 +1,21 @@
+'use strict'
+
 var mongoose = require('mongoose');
 
-var ContentSchema = new mongoose.Schema({
-  type: String,
-  content: String
+
+var WaypointSchema = new mongoose.Schema({
+  location: String
 });
 
-var ProjectSchema = new mongoose.Schema({
-  category: String,
-  title: String,
-  description: String,
-  image: String,
-  main: [ContentSchema],
-  date: { type: Date, default: Date.now},
-});
+var YelpSchema = new mongoose.Schema({
+  name: String,
+  reviewInfo: Object, 
+  phoneNumber: Number,
+  location: Object,
+  categories: Object,
+  url: String,
+  priceDescription: String
+})
 
-module.exports = mongoose.model('pages', ProjectSchema);
+module.exports = mongoose.model('Waypoint', WaypointSchema);
+module.exports = mongoose.model('YelpResults', YelpSchema);
