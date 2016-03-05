@@ -33,7 +33,7 @@ app.use(express.static(__dirname + "/public"));
 app.use('/*', function(req, res) {
     res.sendFile(__dirname + '/public/index.html');
 });
-
+    
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -53,4 +53,5 @@ app.post('/postWayPt', function(req,res) {
 app.listen(port, function() {
     console.log('listening on port: '+ port);
 });
+
 

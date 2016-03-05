@@ -18,15 +18,35 @@
   app.factory("trip",function(){
         return {};
   });
+
+  app.service('wayptService', function($http) {
+    return({
+      addWayPt: addWayPt,
+      getYelpData: getYelpData
+    });
+
+    function addWayPt(waypoint) {
+      $http.post('/postWayPt', waypoint)
+      .then(function() { console.log("Waypoint posted to server") })
+      .catch(function() { console.log("Error, Waypoint not posted")} );
+    }
+
+    function getYelpData() {
+      $http.get('/getYelpData')
+      .then(function() { console.log("Got Yelp Data"); })
+      .catch(function() { console.log("Error, No yelp data") });
+    }
+
+  });
 //////////////////////////////////////////////////////////////////////////////////////
   app.controller('IndexCtrl', function($rootScope, $scope, $routeParams, $http, trip){
     $scope.trip = trip;
-
-
   });
 
-  app.controller('MapSelectCtrl', function($scope, $http, trip) {
+  app.controller('MapSelectCtrl', function($scope, wayptService, trip) {
     $scope.trip = trip;
+    var budget = $scope.trip.budget;
+
       initMap();
       function initMap() {
         var directionsService = new google.maps.DirectionsService;
@@ -47,6 +67,8 @@
         var checkboxArray = document.getElementById('waypoints');
         for (var i = 0; i < checkboxArray.length; i++) {
           if (checkboxArray.options[i].selected) {
+            // maybe look for yelp data here
+            wayptService.addWayPoint(checkboxArray[i].value);
             waypts.push({
               location: checkboxArray[i].value,
               stopover: true
@@ -83,12 +105,11 @@
 
     $scope.newWayPoint = "";
     $scope.mapModel = [];
+    // name, location, rating and price
+    $scope.yelpData = [];
 
     $scope.addWayPoint = function() {
       $scope.mapModel.push($scope.newWayPoint);
-      $http.post('/postWayPt', $scope.newWayPoint)
-      .then(function() { console.log("Waypoint posted to server") })
-      .catch(function() { console.log("Error, Waypoint not posted")} );
     };
 
   });
