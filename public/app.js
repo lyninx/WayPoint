@@ -20,4 +20,13 @@
   app.controller('IndexCtrl', function($rootScope, $scope, $routeParams, $http){
     console.log("test!")
   });
+
+  app.controller('MapSelectCtrl', function($scope) {
+    $scope.newWayPoint = "";
+    $scope.mapModel = [];
+
+    $scope.addWayPoint = function() {
+      $scope.mapModel.push($scope.newWayPoint);
+    };
+  });
 })()

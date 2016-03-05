@@ -9,9 +9,14 @@
       }
 
       #right-panel select {
-        width: 100%;
+        width: 80%;
       }
-
+      #right-panel input {
+        width: 80%;
+      }
+      #right-panel button {
+        margin: auto;
+      }
       #right-panel i {
         font-size: 12px;
       }
