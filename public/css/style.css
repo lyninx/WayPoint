@@ -296,8 +296,11 @@ body .main form a button:hover, body .main form a button:focus {
 
 .footer content div {
   padding: 25px;
-  flex-grow: 1;
   color: #999;
+}
+
+.footer content div:nth-child(1){
+  flex: 1;
 }
 
 .footer content ul {
