@@ -2,8 +2,9 @@
         cursor:pointer;
       }
 
-      #left-panel h4 {
-        margin-right: 5px;
+      .left-panel h4 {
+        margin:0;
+
       }
 
       #floating-panel {

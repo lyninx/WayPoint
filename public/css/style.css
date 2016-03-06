@@ -137,6 +137,14 @@ body .content h1 {
 
 .left-panel {
   min-width: 400px;
+  margin: 20px;
+  margin-right: 0;
+  background: #eee;
+  padding: 12px;
+}
+
+.left-panel ul {
+  list-style: none;
 }
 
 .middle-panel {
