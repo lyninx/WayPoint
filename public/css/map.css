@@ -12,9 +12,6 @@
       }
 
       #right-panel {
-        font-family: 'Roboto','sans-serif';
-        line-height: 30px;
-        padding-left: 5px;
       }
 
       #right-panel select, #right-panel input {
@@ -34,18 +31,11 @@
         font-size: 12px;
       }
       #map {
-        margin: auto;
+        margin: 20px;
         width: 800px;
         height: 400px;
       }
       #right-panel {
-        margin: auto;
         border-width: 2px;
         width: 40%;
-        padding-top: 20px;
-      }
-      #directions-panel {
-        margin-top: 20px;
-        background-color: #FFEE77;
-        padding: 10px;
       }

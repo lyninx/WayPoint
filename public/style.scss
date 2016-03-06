@@ -130,7 +130,9 @@ body .content h1 {
 .middle-panel {
 
 }
-.right-panel {
+#right-panel {
+	margin:20px;
+	background:#eee;
 
 }
 
@@ -220,6 +222,8 @@ body .main {
 button {
 	letter-spacing: 0.5px;
 }
-#directions-panel {
-	background:#eee;
-}
+      #directions-panel {
+        margin:20px;
+        background-color: $blue;
+        padding: 10px;
+      }

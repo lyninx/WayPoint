@@ -139,6 +139,11 @@ body .content h1 {
   min-width: 400px;
 }
 
+#right-panel {
+  margin: 20px;
+  background: #eee;
+}
+
 body .main {
   width: 100%;
   padding: 0;
@@ -237,5 +242,7 @@ button {
 }
 
 #directions-panel {
-  background: #eee;
+  margin: 20px;
+  background-color: #768DC1;
+  padding: 10px;
 }
