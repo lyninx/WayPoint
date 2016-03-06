@@ -94,7 +94,7 @@
         var addr = objModel[count].address;
         var rating = objModel[count].rating;
         var placeName = objModel[count].name;
-        var contentStr = "<div class='infoWindow'> <h3> "+placeName + "</h3> <br> Rating: " + rating + "<br> Price: " + price + "<br>" + addr +"</div>";
+        var contentStr = "<div class='infoWindow'> <h4> "+placeName + "</h4> Rating: " + rating + "<br> Price: " + price + "<br>" + addr +"</div>";
         var markerInfo = new google.maps.InfoWindow({
           maxWidth:600
         });
