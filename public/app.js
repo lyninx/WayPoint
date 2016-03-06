@@ -34,7 +34,7 @@
     var yelpModel = [];
     var markerArr = [];
     var infoWindowArr = [];
-    var icon = "./icons/marker.png";
+    var hotelIcon = "./icons/hotel.png";
 
     $scope.getYelpData = function(){
       $http({
@@ -67,8 +67,6 @@
       for (var j = 0; j < res.data.length; j++) {
         var resIndex = res.data[j];
 
-
-          
           var wayPtObj = {
             price: resIndex.priceDescription,
             category: resIndex.categories[0][0],
@@ -97,7 +95,7 @@
             position: {lat:wayPtObj.lat, lng: wayPtObj.lon },
             title: wayPtObj.name,
             map:map,
-            icon: icon
+            icon: hotelIcon
           });
 
           google.maps.event.addListener(marker, 'click', attachInfoWindow(marker, yelpModel, j)); 
@@ -187,4 +185,6 @@
         });
       }
   });
+/////////////////////////////////////////////// Graph and Budget Algorithms
+
 })()

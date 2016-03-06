@@ -15,7 +15,8 @@ var YelpSchema = new mongoose.Schema({
   categories: Object,
   url: String,
   priceDescription: String
-})
+});
+
 
 module.exports.WaypointSchema = mongoose.model('Waypoint', WaypointSchema);
 module.exports.YelpSchema = mongoose.model('YelpResults', YelpSchema);

@@ -7,6 +7,7 @@ var mongoose = require('mongoose');
 var router = express.Router();
 var db = require('./model/database.js')
 var yelpSearch = require('./yelpSearch.js');
+var expediaAPI = require('./expediaAPI.js');
 
 var app = express();
 var api = express();
