@@ -89,6 +89,8 @@
     var addMarkers = function(res){
       for (var j = 0; j < res.data.length; j++) {
         var resIndex = res.data[j];
+
+
           
           var wayPtObj = {
             price: resIndex.priceDescription,
@@ -99,6 +101,15 @@
             rating: resIndex.reviewInfo.rating,
             name: resIndex.name
           };
+
+          var price = wayPtObj.price.toString().toLowerCase();
+          if (price === 'pricey') {
+            wayPtObj.price = "$150+";
+          } else if (price === 'moderate') {
+            wayPtObj.price = "$100-$150";
+          } else {
+            wayPtObj.price = "$50-$100";
+          }
 
           yelpModel.push(wayPtObj);
           if ($scope.recommendationDisplayed === false) {
