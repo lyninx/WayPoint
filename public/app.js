@@ -45,21 +45,21 @@
     $scope.mapModel = [];
     $scope.recommendHotelModel= [];
     $scope.recommendationDisplayed = false;
-    var yelpModel = [];
+    //var yelpModel = [];
     var hotelModel = [];
     var activityModel = [];
     var infoWindowArr = [];
     var hotelIcon = "./icons/hotel.png";
     var activityIcon = "./icons/marker.png";
 
-    $scope.getYelpData = function(){
+   /* $scope.getYelpData = function(){
       $http({
         method: 'GET',
         url: "http://api.lyninx.com/showRecommendations"
       }).then(function(res){
         addMarkersForYelp(res);
       })
-    }
+    }*/
 
     $scope.addWayPoint = function() {
       $scope.mapModel.push($scope.newWayPoint);
@@ -174,7 +174,7 @@
       google.maps.event.addListener(marker, 'click', attachInfoWindow(marker,activityModel,count));
     };
 
-    var addMarkersForYelp = function(res){
+    /*var addMarkersForYelp = function(res){
       for (var j = 0; j < res.data.length; j++) {
         var resIndex = res.data[j];
 
@@ -188,7 +188,7 @@
             name: resIndex.name
           };
 
-        /*() var price = wayPtObj.price.toString().toLowerCase();
+        () var price = wayPtObj.price.toString().toLowerCase();
           if (price === 'pricey') {
             wayPtObj.price = "$150";
           } else if (price === 'moderate') {
@@ -196,7 +196,7 @@
           } else {
             wayPtObj.price = "$50";
           }
-          */
+          
           yelpModel.push(wayPtObj);
           //if ($scope.recommendationDisplayed === false) {
             $scope.recommendHotelModel.push(wayPtObj);
@@ -212,7 +212,7 @@
           google.maps.event.addListener(marker, 'click', attachInfoWindow(marker, yelpModel, j)); 
         }
         //$scope.recommendationDisplayed = true;
-    } 
+    } */
 
     var attachInfoWindow = function(mark,objModel,count) {
       return function(event) {
