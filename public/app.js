@@ -44,7 +44,7 @@
     var yelpModel = [];
     var markerArr = [];
     var infoWindowArr = [];
-    var icon = "./icons/marker.png";
+    var hotelIcon = "./icons/hotel.png";
 
 
 
@@ -110,14 +110,14 @@
             name: resIndex.name
           };
 
-          var price = wayPtObj.price.toString().toLowerCase();
+         /* var price = wayPtObj.price.toString().toLowerCase();
           if (price === 'pricey') {
             wayPtObj.price = 150;
           } else if (price === 'moderate') {
             wayPtObj.price = 100;
           } else {
             wayPtObj.price = 50;
-          }
+          }*/
 
           yelpModel.push(wayPtObj);
           if ($scope.recommendationDisplayed === false) {
@@ -128,7 +128,7 @@
             position: {lat:wayPtObj.lat, lng: wayPtObj.lon },
             title: wayPtObj.name,
             map:map,
-            icon: icon
+            icon: hotelIcon
           });
 
           google.maps.event.addListener(marker, 'click', attachInfoWindow(marker, yelpModel, j)); 
