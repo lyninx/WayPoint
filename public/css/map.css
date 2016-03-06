@@ -19,6 +19,13 @@
       #budget-link {
         display: block;
         text-align: center;
+        font-family: "Raleway";
+        font-weight: bold;
+        color: #768DC1;
+      }
+
+      #budget-link:hover {
+        color: grey;
       }
 
       #floating-panel {
@@ -50,7 +57,7 @@
       }
       #right-panel {
         border-width: 2px;
-        width: 40%;
+   /*     width: 40%;*/
       }
       .infoWindow {
         text-align: center;
