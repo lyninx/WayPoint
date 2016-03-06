@@ -2,9 +2,12 @@
   <a class="title" href="/">WayPoint</a>
   <a href="#">Account&nbsp; ▼</a>
 </div>
-<div class="col">
+<div class="col" ng-controller="MapSelectCtrl">
   <div class="left-panel">
-    test
+    <h4>Recommended places to stay</h4>
+    <ul>
+        <li ng-repeat="recommendation in recommendModel">{{recommendation.name}}</li>
+    </ul>
   </div>
   <div class="middle-panel">
     <div id="map"></div>
@@ -19,7 +22,7 @@
           <option value="BICYCLING">Bicycling</option>
           <option value="TRANSIT">Transit</option>
       </select>
-      <form ng-controller="MapSelectCtrl">
+      <form>
         <b>Start:</b>
         <span id='start'>{{trip.origin}}</span>
         <!--input name='startPt' id="start" type="text"-->

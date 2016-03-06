@@ -29,6 +29,7 @@
     $scope.trip = trip;
     $scope.newWayPoint = "";
     $scope.mapModel = [];
+    $scope.recommendModel = [];
     var yelpModel = [];
     var markerArr = [];
     var infoWindowArr = [];
@@ -76,6 +77,7 @@
           };
 
           yelpModel.push(wayPtObj);
+          $scope.recommendModel.push(wayPtObj);
 
           var marker = new google.maps.Marker({
             position: {lat:wayPtObj.lat, lng: wayPtObj.lon },
