@@ -7,6 +7,10 @@
 
       }
 
+      ul {
+        list-style-type: none;
+      } 
+      
       #budget {
         text-align: center;
         margin-top: 20px;
@@ -20,7 +24,6 @@
       #floating-panel {
         width: 150px;
         margin: auto;
-  
         z-index: 5;
         background-color: #fff;
         padding: 5px;

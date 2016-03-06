@@ -19,6 +19,12 @@
     $locationProvider.html5Mode(true);
   });
 
+ app.filter('capitalize', function() {
+    return function(input) {
+      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+    }
+  });
+
   app.factory("trip",function(){
         return {};
   });
@@ -221,7 +227,10 @@
     $scope.getWayPoints = function() {
       $http.get('http://api.lyninx.com/getWayPt')
       .then(function(res) {
-        console.log(res);
+        for (var i = 0; i < res.data.length; i++) {
+          var wayPt = res.data[i].location;
+          $scope.wayPoints.push(wayPt);
+        }
       })
       .catch(function() {
         console.log("Can't connect to database");
