@@ -1,0 +1,12 @@
+<div id="budget" ng-controller="BudgetCtrl">
+<h3> Proposed Itinerary </h3>
+<p>You budgeted ${{budget}} for the trip</p>
+
+<p style="color:red;" ng-if="budget < 50">Unfortunately, this is not enough for a trip! Please try again!</p>
+<ul>
+	<li ng-repeat="waypoint in waypoints track by $index"><h3>{{waypoint | capitalize}}</h3></li>
+</ul>
+
+<button ng-click="getWayPoints(); calculateBudget()">test</button>
+
+</div>

@@ -10,9 +10,19 @@
       .when("/map", {
         templateUrl: "map.html",
         controller: "IndexCtrl"
+      })
+      .when("/budget", {
+        templateUrl: "budget.html",
+        controller: "IndexCtrl"
       });
 
     $locationProvider.html5Mode(true);
+  });
+
+  app.filter('capitalize', function() {
+    return function(input) {
+      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+    }
   });
 
   app.factory("trip",function(){
@@ -29,26 +39,27 @@
     $scope.trip = trip;
     $scope.newWayPoint = "";
     $scope.mapModel = [];
-    $scope.recommendModel = [];
+    $scope.recommendHotelModel= [];
     $scope.recommendationDisplayed = false;
     var yelpModel = [];
-    var markerArr = [];
+    var hotelModel = [];
+    var activityModel = [];
     var infoWindowArr = [];
     var hotelIcon = "./icons/hotel.png";
+    var activityIcon = "./icons/marker.png";
 
     $scope.getYelpData = function(){
       $http({
         method: 'GET',
         url: "http://api.lyninx.com/showRecommendations"
       }).then(function(res){
-        addMarkers(res);
+        addMarkersForYelp(res);
       })
     }
 
-
-
     $scope.addWayPoint = function() {
       $scope.mapModel.push($scope.newWayPoint);
+      sendFunActivityAPICall($scope.newWayPoint);
       $http({
           method: 'POST',
           url: 'http://api.lyninx.com/postWayPt',
@@ -63,7 +74,102 @@
       })
     };
 
-    var addMarkers = function(res){
+    var sendFunActivityAPICall = function(location) {
+      var url = "http://terminal2.expedia.com/x/activities/search?location=" + location + "&apikey=EzHG8PETQubneAhbPUW7HmjAGKsEbqOA";
+      $http.get(url)
+      .then(function(res) {
+        console.log("Connected to Expedia...");
+        getHotelInfoAPICall(res.data.regionId);
+        var activities = new Array();
+        for (var j = 0; j < res.data.activities.length; j++) {
+        
+          var name = res.data.activities[j].title;
+          var price = res.data.activities[j].fromPrice;
+          var latLng = res.data.activities[j].latLng;
+          latLng = latLng.split(",");
+          var lat = latLng[0];
+          var lng = latLng[1];
+          var category = res.data.activities[j].categories[1] || res.data.activities[j].categories[0];
+          var rating = res.data.activities[j].recommendationScore;
+          var activity = {
+            name: name,
+            price: price,
+            lat: lat,
+            lng: lng,
+            category: category,
+            rating : rating
+          }
+          activityModel.push(activity);
+          addMarkerForActivity(activity,j);
+        }
+      })
+      .catch(function() {
+        console.log("Can not connect to Expedia");
+      });
+    };
+
+   /* var getLatLng = function(location) {
+      var url = "https://maps.googleapis.com/maps/api/geocode/json?&address=" + location;
+      $http.get(url)
+      .then(function(res) {
+        console.log(res);
+        var latLng = res.data.results[0].geometry.location;
+      })
+      .catch(function() {
+        console.log("Error with geocoding");
+      })
+    };*/
+
+   var getHotelInfoAPICall = function(regionID) {
+      var url = "http://terminal2.expedia.com/x/hotels?maxhotels=10&regionids="+ regionID +"&radius=0.1km&dates=2016-05-19,2016-05-22&apikey=1exNldWCGAnYS1MPKjja0GBlL6EuiL3C";
+      $http.get(url)
+      .then(function(res) {
+        console.log("Connected to Expedia...");
+        for (var i = 0; i < res.data.HotelCount; i++) {
+          var title = res.data.HotelInfoList.HotelInfo[i].Name;
+          var price = res.data.HotelInfoList.HotelInfo[i].Price.BaseRate["Value"];
+          var rating = res.data.HotelInfoList.HotelInfo[i].GuestRating;
+          var lat = res.data.HotelInfoList.HotelInfo[i].Location.GeoLocation.Latitude;
+          var lng = res.data.HotelInfoList.HotelInfo[i].Location.GeoLocation.Longitude;
+          var addr = res.data.HotelInfoList.HotelInfo[i].Location.StreetAddress;
+          var hotel = {
+            name: title,
+            price: price,
+            rating:rating,
+            lat:lat,
+            lng:lng,
+            address:addr,
+          }
+          hotelModel.push(hotel);
+          addMarkerForHotel(hotel, i);
+        } 
+
+      })
+      .catch(function(){
+        console.log("Can not connect to Expedia");
+      });
+    };
+
+    var addMarkerForHotel = function(hotel, count) {
+      var marker = new google.maps.Marker({
+        position: {lat: parseInt(hotel.lat),lng: parseInt(hotel.lng)},
+        map:map,
+        icon: hotelIcon
+      });
+      google.maps.event.addListener(marker,'click', attachInfoWindow(marker,hotelModel,count));
+      $scope.recommendHotelModel.push(hotel);
+    };
+
+    var addMarkerForActivity = function(activity, count) {
+      var marker = new google.maps.Marker({
+        position: {lat:parseInt(activity.lat),lng:parseInt(activity.lng)},
+        map:map,
+        icon: activityIcon
+      });
+      google.maps.event.addListener(marker, 'click', attachInfoWindow(marker,activityModel,count));
+    };
+
+    var addMarkersForYelp = function(res){
       for (var j = 0; j < res.data.length; j++) {
         var resIndex = res.data[j];
 
@@ -77,18 +183,18 @@
             name: resIndex.name
           };
 
-          var price = wayPtObj.price.toString().toLowerCase();
+         var price = wayPtObj.price.toString().toLowerCase();
           if (price === 'pricey') {
-            wayPtObj.price = "$150+";
+            wayPtObj.price = "$150";
           } else if (price === 'moderate') {
-            wayPtObj.price = "$100-$150";
+            wayPtObj.price = "$100";
           } else {
-            wayPtObj.price = "$50-$100";
+            wayPtObj.price = "$50";
           }
 
           yelpModel.push(wayPtObj);
           if ($scope.recommendationDisplayed === false) {
-            $scope.recommendModel.push(wayPtObj);
+            $scope.recommendHotelModel.push(wayPtObj);
           }
 
           var marker = new google.maps.Marker({
@@ -106,10 +212,10 @@
     var attachInfoWindow = function(mark,objModel,count) {
       return function(event) {
         var price = objModel[count].price;
-        var addr = objModel[count].address;
         var rating = objModel[count].rating;
+        var category = objModel[count].category;
         var placeName = objModel[count].name;
-        var contentStr = "<div class='infoWindow'> <h4> "+placeName + "</h4> Rating: " + rating + "<br> Price: " + price + "<br>" + addr +"</div>";
+        var contentStr = "<div class='infoWindow'> <h4> "+placeName + "</h4> Rating: " + rating + "<br> Price: " + price + "<br> Category: " + category + "</div>";
         var markerInfo = new google.maps.InfoWindow({
           maxWidth:600
         });
@@ -125,7 +231,6 @@
             infoWindowArr.pop();
         }
 
-        markerArr.push(mark);
         google.maps.event.addListener(map, 'click', function() {
           markerInfo.close();
         });
@@ -185,6 +290,122 @@
         });
       }
   });
+
 /////////////////////////////////////////////// Graph and Budget Algorithms
+
+  app.controller('BudgetCtrl', function($http, $scope, trip) {
+    $scope.budget = trip.budget;
+    $scope.totalCost = 0;
+    $scope.waypoints = [];
+    $scope.funActivities = [];
+    $scope.latLngs = [];
+    $scope.hotels = [];
+    $scope.decisions = [];
+
+    $scope.getWayPoints = function() {
+      $http.get('http://api.lyninx.com/getWayPt')
+      .then(function(res) {
+        for (var i = 0; i < res.data.length; i++) {
+          var wayPt = res.data[i].location;
+          $scope.waypoints.push(wayPt);
+        }
+      })
+      .catch(function() {
+        console.log("Can't connect to database");
+      });
+    };
+
+    var getLatLng = function(location) {
+      var url = "https://maps.googleapis.com/maps/api/geocode/json?&address=" + location;
+      $http.get(url)
+      .then(function(res) {
+        var latLng = res.data.results.geometry.location;
+        $scope.latLngs.push(latLng);
+      })
+      .catch(function() {
+        console.log("Error with geocoding");
+      })
+    };
+
+    var sendFunActivityAPICall = function(location) {
+      var url = "http://terminal2.expedia.com/x/activities/search?location=" + location + "&apikey=EzHG8PETQubneAhbPUW7HmjAGKsEbqOA";
+      $http.get(url)
+      .then(function(res) {
+        console.log("Connected to Expedia...");
+        var activities = new Array();
+        for (var j = 0; j < res.data.activities.length; j++) {
+        
+          var name = res.data.activities[j].title;
+          var price = res.data.activities[j].fromPrice;
+          var latLng = res.data.activities[j].latLng;
+          latLng = latLng.split(",");
+          var lat = latLng[0];
+          var lng = latLng[1];
+          var category = res.data.activities[j].categories[1] || res.data.activities[j].categories[0];
+          var rating = res.data.activities[j].recommendationScore;
+          var activity = {
+            name: name,
+            price: price,
+            lat: lat,
+            lng: lng,
+            category: category,
+            rating : rating
+          }
+
+          activities.push(activity);
+        }
+          var locationActivity = {
+            loc : location,
+            act : activities
+          }
+          $scope.funActivities.push(locationActivity);
+      })
+      .catch(function() {
+        console.log("Can not connect to Expedia");
+      });
+    };
+
+    var getHotelInfoAPICall = function(lat,lng) {
+      var url = "http://terminal2.expedia.com/x/hotels?location=" + lat + "," + lng + "&radius=5km&dates=2016-05-19,2016-05-22&apikey=1exNldWCGAnYS1MPKjja0GBlL6EuiL3C";
+      $http.get(url)
+      .then(function(res) {
+        console.log("Connected to Expedia...");
+
+        for (var i = 0; i < res.data.HotelCount; i++) {
+          var title = res.data.HotelInfoList.HotelInfo[i].Name;
+          var price = res.data.HotelInfoList.HotelInfo[i].Price.BaseRate.Value;
+          var rating = res.data.HotelInfoList.HotelInfo[i].GuestRating;
+          var lat = res.data.HotelInfoList.HotelInfo[i].Location.GeoLocation.Latitude;
+          var lng = res.data.HotelInfoList.HotelInfo[i].Location.GeoLocation.Longitude;
+          var addr = res.data.HotelInfoList.HotelInfo[i].Location.StreetAddress;
+          var hotel = {
+            name: title,
+            price: price,
+            rating:rating,
+            lat:lat,
+            lng:lng,
+            address:addr,
+          }
+          $scope.hotels.push(hotel);
+      }
+
+      })
+      .catch(function(){
+        console.log("Can not connect to Expedia");
+      });
+    };
+
+    $scope.calculateBudget = function() {
+      for (var index = 0; index < $scope.waypoints.length; index++) {
+        getLatLng($scope.waypoints[index]);
+        sendFunActivityAPICall($scope.waypoints[index]);
+      }
+      for (var i = 0; i < $scope.latLngs.length; i++) {
+        getHotelInfoAPICall($scope.latLngs[i].lat,$scope.latLngs[i].lng);
+      }
+
+     };    
+
+  });
 
 })()

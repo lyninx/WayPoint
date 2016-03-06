@@ -6,12 +6,13 @@
   <div class="left-panel">
     <h4>Recommended places to stay:</h4>
     <ul>
-        <li ng-repeat="recommendation in recommendModel">{{recommendation.name}}</li>
+        <li ng-repeat="recommendation in recommendHotelModel">{{recommendation.name}}</li>
     </ul>
   </div>
   <div class="middle-panel">
     <div id="map"></div>
     <div id="directions-panel"></div>
+     <a id="budget-link" ng-href="/budget">See proposed trip itinerary</a>
   </div>
   <div id="right-panel">
     <div>
@@ -27,9 +28,9 @@
         <span id='start'>{{trip.origin}}</span>
         <br>
         <br>
-        <b>Waypoints:</b> <br>
+        <b>Waypoints:</b> <br><br>
         <input placeholder="enter waypoints along the way..." ng-model="newWayPoint" name="wayPts" type="text"/>
-        <button ng-click="addWayPoint(); getYelpData()">Add the waypoint</button>
+        <button ng-click="addWayPoint(); ">Add the waypoint</button>
         <br><br>
         <select multiple id="waypoints">
           <option ng-repeat="waypoint in mapModel" value="{{waypoint}}">{{waypoint}}</option>
