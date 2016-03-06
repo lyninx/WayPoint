@@ -31,14 +31,15 @@
     $scope.mapModel = [];
     var yelpModel = [];
     var markerArr = [];
+    var infoWindowArr = [];
     var icon = "./icons/marker.png";
 
     $scope.getYelpData = function(){
       $http({
         method: 'GET',
-        url: "http://api.lyninx.com/results"
+        url: "http://api.lyninx.com/showRecommendations"
       }).then(function(res){
-        console.log(res);
+        addMarkers(res);
       })
     }
 
@@ -63,39 +64,64 @@
     var addMarkers = function(res){
       for (var j = 0; j < res.data.length; j++) {
         var resIndex = res.data[j];
-        
-        var wayPtObj = {
-          price: resIndex.priceDescription,
-          category: resIndex.categories[0][0],
-          address: resIndex.location.address[0],
-          lat: resIndex.location.coordinate.latitude,
-          lon: resIndex.location.coordinate.longitude,
-          rating: resIndex.reviewInfo.rating,
-          name: resIndex.name
-        };
+          
+          var wayPtObj = {
+            price: resIndex.priceDescription,
+            category: resIndex.categories[0][0],
+            address: resIndex.location.address[0],
+            lat: resIndex.location.coordinate.latitude,
+            lon: resIndex.location.coordinate.longitude,
+            rating: resIndex.reviewInfo.rating,
+            name: resIndex.name
+          };
 
-        console.log(wayPtObj);
-        yelpModel.push(wayPtObj);
+          yelpModel.push(wayPtObj);
 
-        var marker = new google.maps.Marker({
-          position: {lat:wayPtObj.lat, lng: wayPtObj.lon },
-          title: wayPtObj.name,
-          icon: icon
-        });
+          var marker = new google.maps.Marker({
+            position: {lat:wayPtObj.lat, lng: wayPtObj.lon },
+            title: wayPtObj.name,
+            map:map,
+            icon: icon
+          });
 
-        markerArr.push(marker);
-        //console.log(markerArr);
-        //console.log("marker Pushed");
-      }
+          google.maps.event.addListener(marker, 'click', attachInfoWindow(marker, yelpModel, j)); 
+        }
     }
 
-    
+    var attachInfoWindow = function(mark,objModel,count) {
+      return function(event) {
+        var price = objModel[count].price;
+        var addr = objModel[count].address;
+        var rating = objModel[count].rating;
+        var placeName = objModel[count].name;
+        var contentStr = "<div class='infoWindow'> <h4> "+placeName + "</h4> Rating: " + rating + "<br> Price: " + price + "<br>" + addr +"</div>";
+        var markerInfo = new google.maps.InfoWindow({
+          maxWidth:600
+        });
+        markerInfo.setContent(contentStr);
+        markerInfo.setPosition(event.latLng);
+        markerInfo.open(map);
+        infoWindowArr.push(markerInfo);
+
+        // closes previous infowindow if there is another
+        if (infoWindowArr.length > 1) {
+            infoWindowArr[0].close();
+            infoWindowArr[0] = infoWindowArr[1];
+            infoWindowArr.pop();
+        }
+
+        markerArr.push(mark);
+        google.maps.event.addListener(map, 'click', function() {
+          markerInfo.close();
+        });
+      };
+    }
 
       initMap();
       function initMap() {
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer;
-        var map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
           zoom: 6,
           center: {lat: 41.85, lng: -87.65}
         });
@@ -125,10 +151,6 @@
         }, function(response, status) {
           if (status === google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
-
-            for (var index = 0; index < markerArr.length;index++) {
-              markerArr[index].setMap(map);
-            }
 
             var route = response.routes[0];
             var summaryPanel = document.getElementById('directions-panel');
