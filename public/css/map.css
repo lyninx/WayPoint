@@ -1,3 +1,11 @@
+      button, input {
+        cursor:pointer;
+      }
+
+      #left-panel h4 {
+        margin-right: 5px;
+      }
+
       #floating-panel {
         width: 150px;
         margin: auto;
@@ -12,40 +20,25 @@
       }
 
       #right-panel {
-        font-family: 'Roboto','sans-serif';
-        line-height: 30px;
-        padding-left: 5px;
       }
 
       #right-panel select, #right-panel input {
         font-size: 15px;
       }
 
-      #right-panel select {
-        width: 80%;
-      }
-      #right-panel input {
-        width: 80%;
-      }
-      #right-panel button {
-        margin: auto;
-      }
       #right-panel i {
         font-size: 12px;
       }
       #map {
-        margin: auto;
+        margin: 20px;
         width: 800px;
         height: 400px;
       }
       #right-panel {
-        margin: auto;
         border-width: 2px;
         width: 40%;
-        padding-top: 20px;
       }
-      #directions-panel {
-        margin-top: 20px;
-        background-color: #FFEE77;
-        padding: 10px;
+      .infoWindow {
+        text-align: center;
+        color: #333;
       }
