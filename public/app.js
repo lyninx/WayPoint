@@ -30,6 +30,7 @@
     $scope.newWayPoint = "";
     $scope.mapModel = [];
     $scope.recommendModel = [];
+    $scope.recommendationDisplayed = false;
     var yelpModel = [];
     var markerArr = [];
     var infoWindowArr = [];
@@ -77,7 +78,9 @@
           };
 
           yelpModel.push(wayPtObj);
-          $scope.recommendModel.push(wayPtObj);
+          if ($scope.recommendationDisplayed === false) {
+            $scope.recommendModel.push(wayPtObj);
+          }
 
           var marker = new google.maps.Marker({
             position: {lat:wayPtObj.lat, lng: wayPtObj.lon },
@@ -88,6 +91,7 @@
 
           google.maps.event.addListener(marker, 'click', attachInfoWindow(marker, yelpModel, j)); 
         }
+        $scope.recommendationDisplayed = true;
     }
 
     var attachInfoWindow = function(mark,objModel,count) {
