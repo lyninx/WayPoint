@@ -89,12 +89,43 @@ body .content h1 {
 	margin-bottom:20px;
 	font-size:2em;
 }
+.head {
+	display:flex;
+	flex-direction:row;
+	background:$blue;
+	width:calc(100% - 40px);
+	padding:10px 20px;
+
+}
+.head a {
+	color:#fff;
+	text-decoration: none;
+	padding:6px;
+	font-weight:bold;
+}
+.head a.title {
+	padding:0;
+	text-decoration: none;
+	flex-grow: 1;
+	color:#fff;
+	font-family: 'Raleway', sans-serif;
+	font-size:24px;
+	font-weight:bold;
+}
+.head a:hover {
+	color:#eee;
+
+}
+.subtitle {
+	color: #777;
+	margin-bottom:30px;
+}
 .col {
 	display:flex;
 	flex-direction:row;
 }
 .left-panel {
-
+	min-width:400px;
 }
 .middle-panel {
 
@@ -174,6 +205,16 @@ body .main {
 		padding:30px;
 		flex-grow:1;
 		color:#999;
+	}
+	ul {
+		list-style: none;
+
+	}
+	ul a {
+		color:#999;
+	}
+	ul a:hover {
+		color:#fff;
 	}
 }
 button {
