@@ -1,3 +1,7 @@
+      button, input {
+        cursor:pointer;
+      }
+
       #floating-panel {
         width: 150px;
         margin: auto;

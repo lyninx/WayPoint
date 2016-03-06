@@ -67,18 +67,26 @@
             name: resIndex.name
           };
 
-          console.log(wayPtObj);
           yelpModel.push(wayPtObj);
+
+          var contentString = "<div id='content'> <h2>"+wayPtObj.name+"</h2></div>";
+
+          var infoWindow = new google.maps.InfoWindow({
+            content:contentString
+          }); 
 
           var marker = new google.maps.Marker({
             position: {lat:wayPtObj.lat, lng: wayPtObj.lon },
             title: wayPtObj.name,
+            map:map,
             icon: icon
           });
 
+          marker.addListener('click', function() {
+            infoWindow.open(map,marker);
+          });
+
           markerArr.push(marker);
-          //console.log(markerArr);
-          //console.log("marker Pushed");
         }
 
       });
@@ -88,7 +96,7 @@
       function initMap() {
         var directionsService = new google.maps.DirectionsService;
         var directionsDisplay = new google.maps.DirectionsRenderer;
-        var map = new google.maps.Map(document.getElementById('map'), {
+        map = new google.maps.Map(document.getElementById('map'), {
           zoom: 6,
           center: {lat: 41.85, lng: -87.65}
         });
