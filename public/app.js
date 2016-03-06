@@ -36,15 +36,38 @@
     var infoWindowArr = [];
     var icon = "./icons/marker.png";
 
+
+
+    var clearWayPoints = function(){
+      $http({
+        method: 'GET',
+        url: "http://api.lyninx.com/clearWayPt"
+      }).then(function(res){
+        console.log(res + " cleared");
+      })
+    }
+   
+
+    var setupDB = function(){
+      console.log("setting up DB?")
+      $http({
+        method: 'GET',
+        url: "http://api.lyninx.com/results"
+      }).then(function(res){
+        clearWayPoints();
+      })
+    }
+
+
     $scope.getYelpData = function(){
       $http({
         method: 'GET',
         url: "http://api.lyninx.com/showRecommendations"
       }).then(function(res){
         addMarkers(res);
+        setupDB();
       })
     }
-
 
 
     $scope.addWayPoint = function() {
