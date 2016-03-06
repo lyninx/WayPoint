@@ -128,12 +128,29 @@ body .content h1 {
 	min-width:400px;
 }
 .middle-panel {
-
+	color:#fff;
 }
 #right-panel {
-	margin:20px;
+	margin:20px 20px 20px 0;
+	padding:12px;
 	background:#eee;
 
+}
+#right-panel div select{
+	background:#fff;
+	margin-top:10px;
+	padding:6px;
+
+}
+#right-panel div form {
+	margin-top:10px;
+}
+#right-panel input {
+	padding:6px;
+}
+#right-panel *, #right-panel div select, #right-panel form input {
+	
+	border:0;
 }
 
 body .main {
@@ -222,8 +239,9 @@ body .main {
 button {
 	letter-spacing: 0.5px;
 }
-      #directions-panel {
-        margin:20px;
-        background-color: $blue;
-        padding: 10px;
-      }
+#directions-panel {
+	color:#fff;
+	margin:20px;
+	background-color: $blue;
+	padding: 10px;
+}
