@@ -33,6 +33,17 @@
     var markerArr = [];
     var icon = "./icons/marker.png";
 
+    $scope.getYelpData = function(){
+      $http({
+        method: 'GET',
+        url: "http://api.lyninx.com/results"
+      }).then(function(res){
+        console.log(res);
+      })
+    }
+
+
+
     $scope.addWayPoint = function() {
       $scope.mapModel.push($scope.newWayPoint);
       $http({
@@ -46,43 +57,39 @@
               return str.join("&");
           },
           data: {location: $scope.newWayPoint}
-      }).success(function () {});
+      })
     };
 
-    $scope.getYelpData = function() {
-      console.log("pressed")
-      $http.get('http://api.lyninx.com/showRecommendations')
-      .then(function(res) {
+    var addMarkers = function(res){
+      for (var j = 0; j < res.data.length; j++) {
+        var resIndex = res.data[j];
         
-        for (var j = 0; j < res.data.length; j++) {
-          var resIndex = res.data[j];
-          
-          var wayPtObj = {
-            price: resIndex.priceDescription,
-            category: resIndex.categories[0][0],
-            address: resIndex.location.address[0],
-            lat: resIndex.location.coordinate.latitude,
-            lon: resIndex.location.coordinate.longitude,
-            rating: resIndex.reviewInfo.rating,
-            name: resIndex.name
-          };
+        var wayPtObj = {
+          price: resIndex.priceDescription,
+          category: resIndex.categories[0][0],
+          address: resIndex.location.address[0],
+          lat: resIndex.location.coordinate.latitude,
+          lon: resIndex.location.coordinate.longitude,
+          rating: resIndex.reviewInfo.rating,
+          name: resIndex.name
+        };
 
-          console.log(wayPtObj);
-          yelpModel.push(wayPtObj);
+        console.log(wayPtObj);
+        yelpModel.push(wayPtObj);
 
-          var marker = new google.maps.Marker({
-            position: {lat:wayPtObj.lat, lng: wayPtObj.lon },
-            title: wayPtObj.name,
-            icon: icon
-          });
+        var marker = new google.maps.Marker({
+          position: {lat:wayPtObj.lat, lng: wayPtObj.lon },
+          title: wayPtObj.name,
+          icon: icon
+        });
 
-          markerArr.push(marker);
-          //console.log(markerArr);
-          //console.log("marker Pushed");
-        }
+        markerArr.push(marker);
+        //console.log(markerArr);
+        //console.log("marker Pushed");
+      }
+    }
 
-      });
-    };
+    
 
       initMap();
       function initMap() {
@@ -140,24 +147,5 @@
           }
         });
       }
-
-    
-    var callbackFunction = function(){
-      $http.get('http://api.lyninx.com/showRecommendations')
-      .then(function(res) {
-        console.log("got a response");
-        console.log(res);
-        if(res.data.length <= ($scope.mapModel.length*5-1)){
-          return callbackFunction()
-        }else{
-          $http.get("http://api.lyninx.com/clearWayPt")
-          .then(function(res){
-            console.log("cleared waypoints");
-          })
-        }
-      }); 
-    };
-
- 
   });
 })()

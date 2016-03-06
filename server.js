@@ -79,15 +79,13 @@ api.get('/getWayPt', function(req,res) {
 });
 
 // might want to change this to a post request...
-api.get('/results', function(req,res){
+api.get('/getResults', function(req,res){
     console.log("Getting results...");
     db.findWaypoints(function(waypoints){
       // Also inserts found waypoints into database
     for (var i=0; i<waypoints.length; i++){
-        var results = yelpSearch.findBusinesses("hotel", "hotels" , waypoints[i].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
-        res.send(results);
+        yelpSearch.findBusinesses("hotel", "hotels" , waypoints[i].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
       };
-    return
     })
 }); 
 
@@ -96,7 +94,7 @@ api.get('/showRecommendations', function(req, res){
     db.findYelpResults(function(results){
         res.send(results);
         console.log(results);
-        return
+        return 
     })
 })
 
@@ -114,11 +112,11 @@ api.get('/clearAll', function(req, res){
     console.log("clearing database");
     db.removeWaypoints(function(waypoints) { 
         //console.log(waypoints);
-        res.send("waypoints cleared");
+        res.send("waypoints leared");
     });  
     db.removeYelpResults(function(results){
         console.log(results + " are removed")
-        res.send("yelp results cleared")
+        res.send("yelp results");
     })
 })
 
