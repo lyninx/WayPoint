@@ -141,17 +141,25 @@ body .content h1 {
 
 .middle-panel {
   color: #fff;
+  flex-grow: 1;
+}
+
+.middle-panel #map {
+  width: inherit;
 }
 
 #right-panel {
   margin: 20px 20px 20px 0;
   padding: 12px;
   background: #eee;
+  min-width: 300px;
+  max-width: 400px;
 }
 
 #right-panel div select {
   background: #fff;
   margin-top: 10px;
+  width: 100%;
   padding: 6px;
 }
 
@@ -159,8 +167,30 @@ body .content h1 {
   margin-top: 10px;
 }
 
+#right-panel div form button {
+  width: 100%;
+  padding: 6px;
+}
+
+#right-panel div select {
+  margin-bottom: 20px;
+}
+
+#right-panel div form button:hover, #right-panel #submit:hover {
+  background: #fff;
+}
+
+#right-panel div form button, #right-panel #submit {
+  margin-top: 10px;
+}
+
 #right-panel input {
   padding: 6px;
+  width: calc(100% - 12px);
+}
+
+#right-panel #submit {
+  width: 100%;
 }
 
 #right-panel *, #right-panel div select, #right-panel form input {
