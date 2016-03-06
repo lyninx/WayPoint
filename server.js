@@ -79,7 +79,7 @@ api.get('/getWayPt', function(req,res) {
 });
 
 // might want to change this to a post request...
-api.get('/results', function(req,res){
+api.get('/getResults', function(req,res){
     console.log("Getting results...");
     db.findWaypoints(function(waypoints){
       // Also inserts found waypoints into database
