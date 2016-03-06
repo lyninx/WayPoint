@@ -21,35 +21,35 @@ var client = yelp.createClient({
 });
 
 // create constructor for business
-var Business = function(name, reviewInfo, phoneNumber, location, categories, url, priceDescription){
+var Business = function(name, reviewInfo, phoneNumber, location, categories, url){
   this.name = name;
   this.reviewInfo = reviewInfo;
   this.phoneNumber = phoneNumber;
   this.location = location;
   this.categories = categories;
   this.url = url;
-  this.priceDescription = priceDescription;
+  // this.priceDescription = priceDescription;
 }
 
 
 // Create web scraper to get yelp prices
-var getPriceInfo = function(businessObject, url){
-  request(url, function (err, res, html) {
-    if (!err && res.statusCode == 200) {
-      var $ = cheerio.load(html); 
-      var priceDescription = $('.price-description').text();
-      businessObject.priceDescription = priceDescription;
-      // Do stuff with the data...
-      DB.insertYelpResult(businessObject);
-    }else{
-      throw err
-    }
-  });
-}
+// var getPriceInfo = function(businessObject, url){
+//   request(url, function (err, res, html) {
+//     if (!err && res.statusCode == 200) {
+//       var $ = cheerio.load(html); 
+//       var priceDescription = $('.price-description').text();
+//       businessObject.priceDescription = priceDescription;
+//       // Do stuff with the data...
+//       DB.insertYelpResult(businessObject);
+//     }else{
+//       throw err
+//     }
+//   });
+// }
 
 
 
-showBusinesses = function(businesses, callback){
+showBusinesses = function(businesses){
   var businessArray = [];
   for(var i=0; i<businesses.length; i++){
     // get business information
@@ -62,7 +62,7 @@ showBusinesses = function(businesses, callback){
 
     // get prices and then create new object with prices included 
     var businessObject = new Business(name, reviewInfo, phoneNumber, location, categories, url);
-    callback(businessObject , url);
+    DB.insertYelpResult(businessObject);
   }
 }
 
@@ -78,7 +78,7 @@ var findBusinesses = function(terms, categoryFilter ,postalCode, radiusFilter){
   }).then(function (data) {
     // this is where the data gets processed
     var businesses = data.businesses;
-    showBusinesses(businesses, getPriceInfo);
+    console.log(showBusinesses(businesses));
   
   }).catch(function (err) {
     if (err.type === yelp.errorTypes.areaTooLarge) {
@@ -90,13 +90,13 @@ var findBusinesses = function(terms, categoryFilter ,postalCode, radiusFilter){
 };
  
 
-// DB.findWaypoints(function(waypoints){
-//   // Also inserts found waypoints into database
-//   for (var i=0; i<waypoints.length; i++){
-//     findBusinesses("hotel", "hotels" , waypoints[0].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
-//   };
-// })
-
+/*DB.findWaypoints(function(waypoints){
+  // Also inserts found waypoints into database
+  for (var i=0; i<waypoints.length; i++){
+    findBusinesses("hotel", "hotels" , waypoints[0].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
+  };
+})
+*/
 
 // findBusinesses("food", "food", "M2M3Z9", 2000); // returns information on food ...
 

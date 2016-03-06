@@ -10,9 +10,19 @@
       .when("/map", {
         templateUrl: "map.html",
         controller: "IndexCtrl"
+      })
+      .when("/budget", {
+        templateUrl: "budget.html",
+        controller: "IndexCtrl"
       });
 
     $locationProvider.html5Mode(true);
+  });
+
+ app.filter('capitalize', function() {
+    return function(input) {
+      return (!!input) ? input.charAt(0).toUpperCase() + input.substr(1).toLowerCase() : '';
+    }
   });
 
   app.factory("trip",function(){
@@ -34,7 +44,7 @@
     var yelpModel = [];
     var markerArr = [];
     var infoWindowArr = [];
-    var icon = "./icons/marker.png";
+    var hotelIcon = "./icons/hotel.png";
 
 
 
@@ -90,8 +100,6 @@
       for (var j = 0; j < res.data.length; j++) {
         var resIndex = res.data[j];
 
-
-          
           var wayPtObj = {
             price: resIndex.priceDescription,
             category: resIndex.categories[0][0],
@@ -102,14 +110,14 @@
             name: resIndex.name
           };
 
-          var price = wayPtObj.price.toString().toLowerCase();
+         /* var price = wayPtObj.price.toString().toLowerCase();
           if (price === 'pricey') {
-            wayPtObj.price = "$150+";
+            wayPtObj.price = 150;
           } else if (price === 'moderate') {
-            wayPtObj.price = "$100-$150";
+            wayPtObj.price = 100;
           } else {
-            wayPtObj.price = "$50-$100";
-          }
+            wayPtObj.price = 50;
+          }*/
 
           yelpModel.push(wayPtObj);
           if ($scope.recommendationDisplayed === false) {
@@ -120,7 +128,7 @@
             position: {lat:wayPtObj.lat, lng: wayPtObj.lon },
             title: wayPtObj.name,
             map:map,
-            icon: icon
+            icon: hotelIcon
           });
 
           google.maps.event.addListener(marker, 'click', attachInfoWindow(marker, yelpModel, j)); 
@@ -210,4 +218,35 @@
         });
       }
   });
+//////////////////////////////////////////////// Budget and Greedy Graph Algorithms below
+  app.controller('BudgetCtrl', function($scope, $http, trip) {
+    $scope.budget = trip.budget;
+    $scope.totalCost = 0; 
+    $scope.wayPoints = [];
+
+    $scope.getWayPoints = function() {
+      $http.get('http://api.lyninx.com/getWayPt')
+      .then(function(res) {
+        for (var i = 0; i < res.data.length; i++) {
+          var wayPt = res.data[i].location;
+          $scope.wayPoints.push(wayPt);
+        }
+      })
+      .catch(function() {
+        console.log("Can't connect to database");
+      });
+    };
+
+    $scope.getPlacesToStay = function() {
+      $http.get('http://api.lyninx.com/showRecommendations')
+      .then(function(res) {
+        console.log(res);
+      })
+      .catch(function() {
+        console.log("Can not get use Yelp!")
+      });
+    };
+
+  });
+
 })()

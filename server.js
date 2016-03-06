@@ -78,16 +78,6 @@ api.get('/getWayPt', function(req,res) {
 });
 
 
-api.get('/results', function(req, res){
-    db.findWaypoints(function(waypoints){
-      // Also inserts found waypoints into database
-      for (var i=0; i<waypoints.length; i++){
-        yelpSearch.findBusinesses("hotel", "hotels" , waypoints[0].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
-      };
-      return
-    })  
-})
-
 
 // api.get('/getData', function(req, res){
 //     db.findWaypoints(function(waypoints){
@@ -113,8 +103,8 @@ api.get('/showRecommendations', function(req, res){
         res.send(results);
         console.log(results);
         return 
-    })
-})
+    });
+});
 
 
 api.get('/clearWayPt', function(req,res) {

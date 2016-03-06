@@ -5,11 +5,12 @@
     </video>
 	<div class="center login">
 	<h1 class="title">WayPoint</h1>
-	<h3 class="subtitle">Finding the way, to travel on a budget.</h3>
+	<h3 class="subtitle">Finding the way to travel on a budget.</h3>
 	<form>
 	<input ng-model="trip.origin" placeholder="Trip Location" ng-submit=""/>
 	<input ng-model="trip.budget" placeholder="Amount Budgeted"/>
-	<a ng-href="/map">
+	<!--p ng-show="!angular.isNumber(parseInt(trip.budget))" ng-hide="angular.isNumber(trip.budget)" style="color:red;">Please use numbers for the budget</p-->
+	<a ng-show="angular.isNumber(trip.budget)" ng-href="/map">
 		<button>Submit</button>
 	</a>
 	</form>
@@ -40,7 +41,8 @@
 	            <ul>
 	            	<a href="#"><li>About</li></a>
 	            	<a href="#"><li>Contact Us</li></a>
-
+	            	<a href="#"><li>Deals</li></a>
+	            	<a href="#"><li>Blog</li></a>
 	            </ul>
             </div>
         </content>
