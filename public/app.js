@@ -132,14 +132,14 @@
         console.log("Connected to Expedia...");
         for (var i = 0; i < res.data.HotelCount; i++) {
           var title = res.data.HotelInfoList.HotelInfo[i].Name;
-          var price = res.data.HotelInfoList.HotelInfo[i].Price.BaseRate["Value"];
+        //  var price = res.data.HotelInfoList.HotelInfo[i].Price.BaseRate["Value"];
           var rating = res.data.HotelInfoList.HotelInfo[i].GuestRating;
           var lat = res.data.HotelInfoList.HotelInfo[i].Location.GeoLocation.Latitude;
           var lng = res.data.HotelInfoList.HotelInfo[i].Location.GeoLocation.Longitude;
           var addr = res.data.HotelInfoList.HotelInfo[i].Location.StreetAddress;
           var hotel = {
             name: title,
-            price: price,
+          //  price: price,
             rating:rating,
             lat:lat,
             lng:lng,
@@ -188,7 +188,7 @@
             name: resIndex.name
           };
 
-         var price = wayPtObj.price.toString().toLowerCase();
+        /*() var price = wayPtObj.price.toString().toLowerCase();
           if (price === 'pricey') {
             wayPtObj.price = "$150";
           } else if (price === 'moderate') {
@@ -196,11 +196,11 @@
           } else {
             wayPtObj.price = "$50";
           }
-
+          */
           yelpModel.push(wayPtObj);
-          if ($scope.recommendationDisplayed === false) {
+          //if ($scope.recommendationDisplayed === false) {
             $scope.recommendHotelModel.push(wayPtObj);
-          }
+          //}
 
           var marker = new google.maps.Marker({
             position: {lat:wayPtObj.lat, lng: wayPtObj.lon },
@@ -211,8 +211,8 @@
 
           google.maps.event.addListener(marker, 'click', attachInfoWindow(marker, yelpModel, j)); 
         }
-        $scope.recommendationDisplayed = true;
-    }
+        //$scope.recommendationDisplayed = true;
+    } 
 
     var attachInfoWindow = function(mark,objModel,count) {
       return function(event) {
