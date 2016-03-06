@@ -71,7 +71,6 @@ api.get('/getWayPt', function(req,res) {
 	console.log("fetching waypoints");
 	var wayPoints = "";
     db.findWaypoints(function(docs) { 
-    	
     	res.send(docs);
     	console.log(docs);
     	return
@@ -79,28 +78,44 @@ api.get('/getWayPt', function(req,res) {
 });
 
 
-api.get('/getData', function(req, res){
+api.get('/results', function(req, res){
     db.findWaypoints(function(waypoints){
       // Also inserts found waypoints into database
-        for (var i=0; i<waypoints.length; i++){
-            yelpSearch.findBusinesses("hotel", "hotels" , waypoints[i].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
-          };
-        return
+      for (var i=0; i<waypoints.length; i++){
+        yelpSearch.findBusinesses("hotel", "hotels" , waypoints[0].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
+      };
+      return
     })  
 })
 
-// might want to change this to a post request...
-// api.get('/getResults', function(req,res){
-//     console.log("Getting results...");
+
+// api.get('/getData', function(req, res){
 //     db.findWaypoints(function(waypoints){
 //       // Also inserts found waypoints into database
 //         for (var i=0; i<waypoints.length; i++){
 //             yelpSearch.findBusinesses("hotel", "hotels" , waypoints[i].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
-//           };
+//         };
 //         return
-//     })
+//     })  
+// })
+
+// might want to change this to a post request...
+// api.get('/getResults', function(req,res){
+//     console.log("Getting results...");
+    
     
 // }); 
+var businessResults = function(term, category){
+    db.findWaypoints(function(waypoints){
+      // Also inserts found waypoints into database
+        for (var i=0; i<waypoints.length; i++){
+            yelpSearch.findBusinesses(term, category, waypoints[i].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
+        };
+    })   
+}
+
+
+
 
 api.get('/showRecommendations', function(req, res){
     console.log("Showing results...");

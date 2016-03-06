@@ -147,6 +147,11 @@ body .content h1 {
   list-style: none;
 }
 
+.left-panel ul li {
+  margin: 8px;
+  background: #fff;
+}
+
 .middle-panel {
   color: #fff;
   flex-grow: 1;
