@@ -126,6 +126,17 @@ body .content h1 {
 }
 .left-panel {
 	min-width:400px;
+	margin:20px;
+	margin-right:0;
+	background:#eee;
+	padding:12px;
+}
+.left-panel ul {
+	list-style: none;
+}
+.left-panel ul li {
+	margin:8px;
+	background:#fff;
 }
 .middle-panel {
 	color:#fff;
