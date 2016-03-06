@@ -103,16 +103,6 @@ body .content h1 {
   font-size: 2em;
 }
 
-#budget {
-  text-align: center;
-  margin-top: 20px;
-}
-
-#budget-link {
-  display: block;
-  text-align: center;
-}
-
 .head {
   display: flex;
   flex-direction: row;

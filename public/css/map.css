@@ -7,6 +7,16 @@
 
       }
 
+      #budget {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      #budget-link {
+        display: block;
+        text-align: center;
+      }
+
       #floating-panel {
         width: 150px;
         margin: auto;

@@ -90,13 +90,13 @@ var findBusinesses = function(terms, categoryFilter ,postalCode, radiusFilter){
 };
  
 
-DB.findWaypoints(function(waypoints){
+/*DB.findWaypoints(function(waypoints){
   // Also inserts found waypoints into database
   for (var i=0; i<waypoints.length; i++){
     findBusinesses("hotel", "hotels" , waypoints[0].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
   };
 })
-
+*/
 
 // findBusinesses("food", "food", "M2M3Z9", 2000); // returns information on food ...
 
