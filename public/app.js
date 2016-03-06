@@ -110,6 +110,7 @@
             name: resIndex.name
           };
 
+          /*
           var price = wayPtObj.price.toString().toLowerCase();
           if (price === 'pricey') {
             wayPtObj.price = 150;
@@ -117,7 +118,7 @@
             wayPtObj.price = 100;
           } else {
             wayPtObj.price = 50;
-          }
+          }*/
 
           yelpModel.push(wayPtObj);
           if ($scope.recommendationDisplayed === false) {
