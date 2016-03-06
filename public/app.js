@@ -30,6 +30,7 @@
     $scope.newWayPoint = "";
     $scope.mapModel = [];
     $scope.recommendModel = [];
+    $scope.recommendationDisplayed = false;
     var yelpModel = [];
     var markerArr = [];
     var infoWindowArr = [];
@@ -65,6 +66,8 @@
     var addMarkers = function(res){
       for (var j = 0; j < res.data.length; j++) {
         var resIndex = res.data[j];
+
+
           
           var wayPtObj = {
             price: resIndex.priceDescription,
@@ -76,8 +79,19 @@
             name: resIndex.name
           };
 
+          var price = wayPtObj.price.toString().toLowerCase();
+          if (price === 'pricey') {
+            wayPtObj.price = "$150+";
+          } else if (price === 'moderate') {
+            wayPtObj.price = "$100-$150";
+          } else {
+            wayPtObj.price = "$50-$100";
+          }
+
           yelpModel.push(wayPtObj);
-          $scope.recommendModel.push(wayPtObj);
+          if ($scope.recommendationDisplayed === false) {
+            $scope.recommendModel.push(wayPtObj);
+          }
 
           var marker = new google.maps.Marker({
             position: {lat:wayPtObj.lat, lng: wayPtObj.lon },
@@ -88,6 +102,7 @@
 
           google.maps.event.addListener(marker, 'click', attachInfoWindow(marker, yelpModel, j)); 
         }
+        $scope.recommendationDisplayed = true;
     }
 
     var attachInfoWindow = function(mark,objModel,count) {
