@@ -9,7 +9,8 @@
 	<form>
 	<input ng-model="trip.origin" placeholder="Trip Location" ng-submit=""/>
 	<input ng-model="trip.budget" placeholder="Amount Budgeted"/>
-	<a ng-href="/map">
+	<!--p ng-show="!angular.isNumber(parseInt(trip.budget))" ng-hide="angular.isNumber(trip.budget)" style="color:red;">Please use numbers for the budget</p-->
+	<a ng-show="angular.isNumber(trip.budget)" ng-href="/map">
 		<button>Submit</button>
 	</a>
 	</form>

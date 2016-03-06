@@ -35,6 +35,11 @@ body {
   overflow-x: hidden;
 }
 
+#budget {
+  text-align: center;
+  margin-top: 20px;
+}
+
 h1.title {
   color: #768DC1;
   font-family: 'Raleway', sans-serif;
@@ -145,6 +150,11 @@ body .content h1 {
 
 .left-panel ul {
   list-style: none;
+}
+
+.left-panel ul li {
+  margin: 8px;
+  background: #fff;
 }
 
 .middle-panel {

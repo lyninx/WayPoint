@@ -95,8 +95,8 @@ api.get('/showRecommendations', function(req, res){
         res.send(results);
         console.log(results);
         return 
-    })
-})
+    });
+});
 
 
 api.get('/clearWayPt', function(req,res) {

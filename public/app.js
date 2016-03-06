@@ -10,6 +10,10 @@
       .when("/map", {
         templateUrl: "map.html",
         controller: "IndexCtrl"
+      })
+      .when("/budget", {
+        templateUrl: "budget.html",
+        controller: "IndexCtrl"
       });
 
     $locationProvider.html5Mode(true);
@@ -67,8 +71,6 @@
       for (var j = 0; j < res.data.length; j++) {
         var resIndex = res.data[j];
 
-
-          
           var wayPtObj = {
             price: resIndex.priceDescription,
             category: resIndex.categories[0][0],
@@ -187,4 +189,22 @@
         });
       }
   });
+//////////////////////////////////////////////// Budget and Greedy Graph Algorithms below
+  app.controller('BudgetCtrl', function($scope, $http, trip) {
+    $scope.budget = trip.budget;
+    $scope.totalCost = 0; 
+    $scope.wayPoints = [];
+
+    $scope.getWayPoints = function() {
+      $http.get('/getWayPt')
+      .then(function(res) {
+        console.log(res);
+      })
+      .catch(function() {
+        console.log("Can't connect to database");
+      });
+    };
+
+  });
+
 })()
