@@ -4,10 +4,7 @@
 
 <p style="color:red;" ng-if="budget < 50">Unfortunately, this is not enough for a trip! Please try again!</p>
 <ul>
-	<li ng-repeat="waypoint in wayPoints track by $index"><h3>{{waypoint | capitalize}}</h3></li>
+	<li ng-repeat="waypoint in schedule track by $index"><h3>{{waypoint | capitalize}}</h3></li>
 </ul>
-
-<button ng-click="getWayPoints()">test</button>
-<button ng-click="getPlacesToStay()">test2</button>
 
 </div>
