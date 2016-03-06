@@ -106,11 +106,11 @@
 
           var price = wayPtObj.price.toString().toLowerCase();
           if (price === 'pricey') {
-            wayPtObj.price = "$150+";
+            wayPtObj.price = 150;
           } else if (price === 'moderate') {
-            wayPtObj.price = "$100-$150";
+            wayPtObj.price = 100;
           } else {
-            wayPtObj.price = "$50-$100";
+            wayPtObj.price = 50;
           }
 
           yelpModel.push(wayPtObj);
@@ -219,7 +219,7 @@
     $scope.wayPoints = [];
 
     $scope.getWayPoints = function() {
-      $http.get('/getWayPt')
+      $http.get('http://api.lyninx.com/getWayPt')
       .then(function(res) {
         console.log(res);
       })

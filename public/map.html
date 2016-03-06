@@ -12,7 +12,7 @@
   <div class="middle-panel">
     <div id="map"></div>
     <div id="directions-panel"></div>
-    <a ng-href="/budget">See proposed trip itinerary</a>
+    <a id="budget-link" ng-href="/budget">See proposed trip itinerary</a>
   </div>
   <div id="right-panel">
     <div>
@@ -28,7 +28,7 @@
         <span id='start'>{{trip.origin}}</span>
         <br>
         <br>
-        <b>Waypoints:</b> <br>
+        <b>Waypoints:</b> <br><br>
         <input placeholder="enter waypoints along the way..." ng-model="newWayPoint" name="wayPts" type="text"/>
         <button ng-click="addWayPoint(); getYelpData();">Add the waypoint</button>
         <br>
