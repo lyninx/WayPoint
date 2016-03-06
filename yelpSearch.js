@@ -62,7 +62,7 @@ showBusinesses = function(businesses){
 
     // get prices and then create new object with prices included 
     var businessObject = new Business(name, reviewInfo, phoneNumber, location, categories, url);
-    businessArray.push(businessObject);
+    DB.insertYelpResult(businessObject);
   }
 }
 
@@ -78,7 +78,7 @@ var findBusinesses = function(terms, categoryFilter ,postalCode, radiusFilter){
   }).then(function (data) {
     // this is where the data gets processed
     var businesses = data.businesses;
-    showBusinesses(businesses);
+    console.log(showBusinesses(businesses));
   
   }).catch(function (err) {
     if (err.type === yelp.errorTypes.areaTooLarge) {
@@ -91,7 +91,6 @@ var findBusinesses = function(terms, categoryFilter ,postalCode, radiusFilter){
  
 
 DB.findWaypoints(function(waypoints){
-  console.log(waypoints);
   // Also inserts found waypoints into database
   for (var i=0; i<waypoints.length; i++){
     findBusinesses("hotel", "hotels" , waypoints[0].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
