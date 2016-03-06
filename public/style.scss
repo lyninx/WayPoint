@@ -49,6 +49,13 @@ body .content article{
 	padding:10px 30px;
 	margin:auto;
 }
+body .content article p {
+	text-indent: 30px;
+	line-height: 140%;
+	padding:20px;
+	margin-bottom:60px;
+
+}
 body .content article ul {
 	list-style: none;
 	padding:0;
@@ -133,9 +140,11 @@ body .content h1 {
 }
 .left-panel ul {
 	list-style: none;
+	padding:0;
 }
 .left-panel ul li {
 	margin:8px;
+	padding:4px;
 	background:#fff;
 }
 .middle-panel {
@@ -265,6 +274,7 @@ body .main {
 	}
 	ul {
 		list-style: none;
+		padding:0;
 
 	}
 	ul a {
