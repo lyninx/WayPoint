@@ -33,6 +33,17 @@
     var markerArr = [];
     var icon = "./icons/marker.png";
 
+    $scope.getYelpData = function(){
+      $http({
+        method: 'GET',
+        url: "http://api.lyninx.com/results"
+      }).then(function(res){
+        console.log(res);
+      })
+    }
+
+
+
     $scope.addWayPoint = function() {
       $scope.mapModel.push($scope.newWayPoint);
       $http({
@@ -46,16 +57,12 @@
               return str.join("&");
           },
           data: {location: $scope.newWayPoint}
-      }).success(function () {});
+      })
     };
 
-    $scope.getYelpData = function() {
-      console.log("pressed")
-      $http.get('http://api.lyninx.com/showRecommendations')
-      .then(function(res) {
-        
-        for (var j = 0; j < res.data.length; j++) {
-          var resIndex = res.data[j];
+    var addMarkers = function(res){
+      for (var j = 0; j < res.data.length; j++) {
+        var resIndex = res.data[j];
           
           var wayPtObj = {
             price: resIndex.priceDescription,
@@ -88,9 +95,9 @@
 
           markerArr.push(marker);
         }
+    }
 
-      });
-    };
+    
 
       initMap();
       function initMap() {
@@ -148,24 +155,5 @@
           }
         });
       }
-
-    
-    var callbackFunction = function(){
-      $http.get('http://api.lyninx.com/showRecommendations')
-      .then(function(res) {
-        console.log("got a response");
-        console.log(res);
-        if(res.data.length <= ($scope.mapModel.length*5-1)){
-          return callbackFunction()
-        }else{
-          $http.get("http://api.lyninx.com/clearWayPt")
-          .then(function(res){
-            console.log("cleared waypoints");
-          })
-        }
-      }); 
-    };
-
- 
   });
 })()
