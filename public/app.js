@@ -31,14 +31,15 @@
     $scope.mapModel = [];
     var yelpModel = [];
     var markerArr = [];
+    var infoWindowArr = [];
     var icon = "./icons/marker.png";
 
     $scope.getYelpData = function(){
       $http({
         method: 'GET',
-        url: "http://api.lyninx.com/results"
+        url: "http://api.lyninx.com/showRecommendations"
       }).then(function(res){
-        console.log(res);
+        addMarkers(res);
       })
     }
 
@@ -76,12 +77,6 @@
 
           yelpModel.push(wayPtObj);
 
-          var contentString = "<div id='content'> <h2>"+wayPtObj.name+"</h2></div>";
-
-          var infoWindow = new google.maps.InfoWindow({
-            content:contentString
-          }); 
-
           var marker = new google.maps.Marker({
             position: {lat:wayPtObj.lat, lng: wayPtObj.lon },
             title: wayPtObj.name,
@@ -89,15 +84,38 @@
             icon: icon
           });
 
-          marker.addListener('click', function() {
-            infoWindow.open(map,marker);
-          });
-
-          markerArr.push(marker);
+          google.maps.event.addListener(marker, 'click', attachInfoWindow(marker, yelpModel, j)); 
         }
     }
 
-    
+    var attachInfoWindow = function(mark,objModel,count) {
+      return function(event) {
+        var price = objModel[count].price;
+        var addr = objModel[count].address;
+        var rating = objModel[count].rating;
+        var placeName = objModel[count].name;
+        var contentStr = "<div class='infoWindow'> <h3> "+placeName + "</h3> <br> Rating: " + rating + "<br> Price: " + price + "<br>" + addr +"</div>";
+        var markerInfo = new google.maps.InfoWindow({
+          maxWidth:600
+        });
+        markerInfo.setContent(contentStr);
+        markerInfo.setPosition(event.latLng);
+        markerInfo.open(map);
+        infoWindowArr.push(markerInfo);
+
+        // closes previous infowindow if there is another
+        if (infoWindowArr.length > 1) {
+            infoWindowArr[0].close();
+            infoWindowArr[0] = infoWindowArr[1];
+            infoWindowArr.pop();
+        }
+
+        markerArr.push(mark);
+        google.maps.event.addListener(map, 'click', function() {
+          markerInfo.close();
+        });
+      };
+    }
 
       initMap();
       function initMap() {
@@ -133,10 +151,6 @@
         }, function(response, status) {
           if (status === google.maps.DirectionsStatus.OK) {
             directionsDisplay.setDirections(response);
-
-            for (var index = 0; index < markerArr.length;index++) {
-              markerArr[index].setMap(map);
-            }
 
             var route = response.routes[0];
             var summaryPanel = document.getElementById('directions-panel');
