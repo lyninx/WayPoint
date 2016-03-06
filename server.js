@@ -78,18 +78,29 @@ api.get('/getWayPt', function(req,res) {
     });  
 });
 
-// might want to change this to a post request...
-api.get('/getResults', function(req,res){
-    console.log("Getting results...");
+
+api.get('/getData', function(req, res){
     db.findWaypoints(function(waypoints){
       // Also inserts found waypoints into database
         for (var i=0; i<waypoints.length; i++){
             yelpSearch.findBusinesses("hotel", "hotels" , waypoints[i].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
           };
         return
-    })
+    })  
+})
+
+// might want to change this to a post request...
+// api.get('/getResults', function(req,res){
+//     console.log("Getting results...");
+//     db.findWaypoints(function(waypoints){
+//       // Also inserts found waypoints into database
+//         for (var i=0; i<waypoints.length; i++){
+//             yelpSearch.findBusinesses("hotel", "hotels" , waypoints[i].location , 5000);  //returns information on hotels at location given by waypoints in database with a 5000m radius
+//           };
+//         return
+//     })
     
-}); 
+// }); 
 
 api.get('/showRecommendations', function(req, res){
     console.log("Showing results...");
