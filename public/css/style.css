@@ -161,11 +161,6 @@ body .content h1 {
   background: #fff;
 }
 
-.left-panel ul li {
-  margin: 8px;
-  background: #fff;
-}
-
 .middle-panel {
   color: #fff;
   flex-grow: 1;
