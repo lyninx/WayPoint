@@ -237,6 +237,16 @@
       });
     };
 
+    $scope.getPlacesToStay = function() {
+      $http.get('http://api.lyninx.com/showRecommendations')
+      .then(function(res) {
+        console.log(res);
+      })
+      .catch(function() {
+        console.log("Can not get use Yelp!")
+      });
+    };
+
   });
 
 })()
