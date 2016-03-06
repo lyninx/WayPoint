@@ -28,6 +28,10 @@
   app.factory("trip",function(){
         return {};
   });
+
+  app.factory("schedule", function() {
+    return [];
+  });
 //////////////////////////////////////////////////////////////////////////////////////
   app.controller('IndexCtrl', function($rootScope, $scope, $routeParams, $http, trip){
     $scope.trip = trip;
@@ -35,7 +39,7 @@
 
   });
 
-  app.controller('MapSelectCtrl', function($scope, $http, trip) {
+  app.controller('MapSelectCtrl', function($scope, $http, trip, schedule) {
     $scope.trip = trip;
     $scope.newWayPoint = "";
     $scope.mapModel = [];
@@ -59,6 +63,7 @@
 
     $scope.addWayPoint = function() {
       $scope.mapModel.push($scope.newWayPoint);
+      schedule.push($scope.newWayPoint);
       sendFunActivityAPICall($scope.newWayPoint);
       $http({
           method: 'POST',
@@ -293,8 +298,9 @@
 
 /////////////////////////////////////////////// Graph and Budget Algorithms
 
-  app.controller('BudgetCtrl', function($http, $scope, trip) {
+  app.controller('BudgetCtrl', function($http, $scope, trip, schedule) {
     $scope.budget = trip.budget;
+    $scope.schedule = schedule;
     $scope.totalCost = 0;
     $scope.waypoints = [];
     $scope.funActivities = [];
