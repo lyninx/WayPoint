@@ -295,33 +295,18 @@ body .main form a button:hover, body .main form a button:focus {
 }
 
 .footer content div {
-<<<<<<< HEAD
   padding: 30px;
   flex-grow: 1;
-=======
-  padding: 25px;
->>>>>>> 2cb89309c3dc00b187339a3e7f5ad5f2c32f24bb
   color: #999;
-}
-
-.footer content div:nth-child(1){
-  flex: 1;
 }
 
 .footer content ul {
   list-style: none;
-<<<<<<< HEAD
-=======
-  margin:0;
->>>>>>> 2cb89309c3dc00b187339a3e7f5ad5f2c32f24bb
   padding: 0;
 }
 
 .footer content ul a {
-  display:inline-block;
   color: #999;
-  padding-right:30px;
-  text-decoration: none;
 }
 
 .footer content ul a:hover {
