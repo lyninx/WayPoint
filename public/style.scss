@@ -132,7 +132,7 @@ body .content h1 {
 	flex-direction:row;
 }
 .left-panel {
-	min-width:400px;
+	min-width:300px;
 	margin:20px;
 	margin-right:0;
 	background:#eee;
@@ -254,7 +254,7 @@ body .main {
 }
 .footer {
 		width:100%;
-		min-height:200px;
+		min-height:70px;
 		font-family: 'Raleway', sans-serif;
 		font-weight:bold;
 		background:#444;
@@ -266,19 +266,28 @@ body .main {
 	width:1220px;
 	margin:auto;
 }
+
 .footer content {
 	div {
-		padding:30px;
-		flex-grow:1;
+		padding:25px;
 		color:#999;
 	}
+
+	div:nth-child(1){
+		flex: 1;
+	}
+
 	ul {
 		list-style: none;
 		padding:0;
+		margin: 0;
 
 	}
 	ul a {
 		color:#999;
+		display: inline-block;
+		text-decoration: none;
+		padding-right: 20px;
 	}
 	ul a:hover {
 		color:#fff;

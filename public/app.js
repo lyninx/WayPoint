@@ -45,21 +45,21 @@
     $scope.mapModel = [];
     $scope.recommendHotelModel= [];
     $scope.recommendationDisplayed = false;
-    var yelpModel = [];
+    //var yelpModel = [];
     var hotelModel = [];
     var activityModel = [];
     var infoWindowArr = [];
     var hotelIcon = "./icons/hotel.png";
     var activityIcon = "./icons/marker.png";
 
-    $scope.getYelpData = function(){
+   /* $scope.getYelpData = function(){
       $http({
         method: 'GET',
         url: "http://api.lyninx.com/showRecommendations"
       }).then(function(res){
         addMarkersForYelp(res);
       })
-    }
+    }*/
 
     $scope.addWayPoint = function() {
       $scope.mapModel.push($scope.newWayPoint);
@@ -132,14 +132,14 @@
         console.log("Connected to Expedia...");
         for (var i = 0; i < res.data.HotelCount; i++) {
           var title = res.data.HotelInfoList.HotelInfo[i].Name;
-          var price = res.data.HotelInfoList.HotelInfo[i].Price.BaseRate["Value"];
+        //  var price = res.data.HotelInfoList.HotelInfo[i].Price.BaseRate["Value"];
           var rating = res.data.HotelInfoList.HotelInfo[i].GuestRating;
           var lat = res.data.HotelInfoList.HotelInfo[i].Location.GeoLocation.Latitude;
           var lng = res.data.HotelInfoList.HotelInfo[i].Location.GeoLocation.Longitude;
           var addr = res.data.HotelInfoList.HotelInfo[i].Location.StreetAddress;
           var hotel = {
             name: title,
-            price: price,
+          //  price: price,
             rating:rating,
             lat:lat,
             lng:lng,
@@ -174,7 +174,7 @@
       google.maps.event.addListener(marker, 'click', attachInfoWindow(marker,activityModel,count));
     };
 
-    var addMarkersForYelp = function(res){
+    /*var addMarkersForYelp = function(res){
       for (var j = 0; j < res.data.length; j++) {
         var resIndex = res.data[j];
 
@@ -188,7 +188,7 @@
             name: resIndex.name
           };
 
-         var price = wayPtObj.price.toString().toLowerCase();
+        () var price = wayPtObj.price.toString().toLowerCase();
           if (price === 'pricey') {
             wayPtObj.price = "$150";
           } else if (price === 'moderate') {
@@ -196,11 +196,11 @@
           } else {
             wayPtObj.price = "$50";
           }
-
+          
           yelpModel.push(wayPtObj);
-          if ($scope.recommendationDisplayed === false) {
+          //if ($scope.recommendationDisplayed === false) {
             $scope.recommendHotelModel.push(wayPtObj);
-          }
+          //}
 
           var marker = new google.maps.Marker({
             position: {lat:wayPtObj.lat, lng: wayPtObj.lon },
@@ -211,8 +211,8 @@
 
           google.maps.event.addListener(marker, 'click', attachInfoWindow(marker, yelpModel, j)); 
         }
-        $scope.recommendationDisplayed = true;
-    }
+        //$scope.recommendationDisplayed = true;
+    } */
 
     var attachInfoWindow = function(mark,objModel,count) {
       return function(event) {
@@ -248,7 +248,7 @@
         var directionsDisplay = new google.maps.DirectionsRenderer;
         map = new google.maps.Map(document.getElementById('map'), {
           zoom: 6,
-          center: {lat: 41.85, lng: -87.65}
+          center: {lat: 36, lng: 138}
         });
         directionsDisplay.setMap(map);
         

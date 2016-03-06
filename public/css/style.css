@@ -296,26 +296,28 @@ body .main form a button:hover, body .main form a button:focus {
 
 .footer content div {
   padding: 25px;
-  flex-grow: 1;
   color: #999;
+}
+
+.footer content div:nth-child(1) {
+  flex: 1;
 }
 
 .footer content ul {
   list-style: none;
-  margin:0;
+  padding: 0;
+  margin: 0;
 }
 
 .footer content ul a {
   color: #999;
+  display: inline-block;
+  text-decoration: none;
+  padding-right: 20px;
 }
 
 .footer content ul a:hover {
   color: #fff;
-}
-
-.footer content ul a li{
-  padding-right: 30px;
-  display: inline-block;
 }
 
 button {
