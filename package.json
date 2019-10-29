@@ -16,7 +16,7 @@
     "express": "~4.11.0",
     "mongo-express": "*",
     "mongodb": "^2.1.0",
-    "mongoose": "4.4.5",
+    "mongoose": "5.7.7",
     "morgan": "~1.5.1",
     "node-sass-middleware": "^0.9.7",
     "node-yelp": "0.0.3",
